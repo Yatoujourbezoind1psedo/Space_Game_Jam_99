@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float distance = 2; 
     [SerializeField] private int nbCanaux = 4; 
     private float xPlayer, xOrigine;
+
+    [SerializeField] private HealthManager healthManager; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +30,16 @@ public class PlayerController : MonoBehaviour
         {
             transform.position += new Vector3(distance, 0f, 0f);
             xPlayer += distance; 
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("Obstacle")) //Si le joueur se fait toucher
+        {
+            Debug.Log("ouch"); 
+            healthManager.TakeDamage(1); 
         }
     }
 
