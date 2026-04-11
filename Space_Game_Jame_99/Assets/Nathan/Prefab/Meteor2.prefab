@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6212818847233686238}
   - component: {fileID: 2955394353435007360}
   - component: {fileID: 1977743655203595034}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Meteor2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

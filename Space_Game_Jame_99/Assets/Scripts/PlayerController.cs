@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.transform.root == transform.root) return; // Si l'autre objet rentre en collison avec un enfant alors return
 
         if (other.CompareTag("Obstacle")) //Si le joueur se fait toucher
         {
@@ -43,5 +44,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    /*
+    Pour éviter que laser active collision avec obstacle : 
+    Laser a layer laser, player a layer player et obstacle a layer obtacle 
+    Dans edit -> Project Settings -> Physics -> Settings > Layer collision matrix : disable interaction entre laser et obstacle
+    */
 }
