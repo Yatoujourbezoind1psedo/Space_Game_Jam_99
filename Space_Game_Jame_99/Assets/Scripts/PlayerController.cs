@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float distance = 2; 
     [SerializeField] private int nbCanaux = 4; 
-    private float xPlayer, xOrigine;
+    private float xPlayer, xOrigine, loseTargetTimer;
+    public float tempsDeplacement = 0.2f; //Va permettre de faire verrou temporel (ou grace period) pour que dès que perso bouge alors on continue sur le même laser (sinon couperait le startscan())
 
     [SerializeField] private HealthManager healthManager; 
     [SerializeField] private float ptScan; 
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject laser; 
 
     private TargetController lastTarget; //Permet d'avoir un target controller null au démarage
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,38 +54,55 @@ public class PlayerController : MonoBehaviour
         if (!Keyboard.current.spaceKey.isPressed) //Si espace est pas pressé on (ca veut dire que la dernière cible doit cessé son décompte et que l'on vise rien maintenant)
         {
             laser.SetActive(false); //Fait disparaitre visuel du laser
-            if (lastTarget != null) //si la dernière cible n'est pas présente
+            if (lastTarget != null) //si la dernière cible n'est pas présente et donc que j'avais scan une target
             {
                 lastTarget.StopScan(); //stop scan de l'ancienne cible
                 lastTarget = null; //et l'ancienne cible maintenant est nulle puisqeu on relâche le bouton
             }
-            return; //retour de la fonction HandleLaser poru pas déclencher le reste
+            return; //retour de la fonction HandleLaser qaund pas clic poru pas déclencher le reste
         }
 
         //Si espace a été pressé
-        TargetController current = null; //On intialise à vide la référence de la cible au cas où raycast touche R 
+        
         RaycastHit hit; //info du raycast 
         laser.SetActive(true); //fait apparaitre le visuel du laser
+        TargetController currentTarget = null;  //On intialise à vide la référence de la cible au cas où raycast touche R 
 
         Debug.DrawRay(transform.position, Vector3.left * rayDistance, Color.red); //Pour afficher dans scène (attention à Vector3.left, ici tire rayon à gauche)
 
+        //détection cible actuelle 
         if (Physics.Raycast(transform.position, Vector3.left, out hit, rayDistance)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
         {
             if (hit.collider.CompareTag("Target"))
             {
-                current = hit.collider.GetComponent<TargetController>(); //si on touche une target on dit que la cible (current) = TargetController de l'impact
+                currentTarget = hit.collider.GetComponent<TargetController>(); //si on touche une target on dit que la cible (current) = TargetController de l'impact
             }
         }
-
-        if (current != lastTarget) //Si la cible actuelle est différente de l'ancienne (donc supprime qaudn touche même cible)
+        
+        if (currentTarget != null) //si le current est pas nul, donc si on touche un target
         {
-            if (lastTarget != null) //permet d'éviter bug dans le cas où rien n'était touché avant 
-                lastTarget.StopScan(); //On arrête le scan de l'ancienne cible
+            loseTargetTimer = 0f; //Reset du timer car cible toujours détectée
 
-            if (current != null) //permet d'éviter bug dans le cas où le rayon loupe cible
-                current.StartScan(); //et on démarre le nombre de point de celle scannée
+            if(currentTarget != lastTarget) //Si c'est pas la même cible que la précédente
+            {
+                if (lastTarget != null) //Et que l'ancienne est pas nulle
+                    lastTarget.StopScan(); //Alors arrêt du scan
 
-            lastTarget = current; //et l'ancienne cible devient la nouvelle (vu que TargetController current = null pose pas de soucis pour prochaine frame)
+                lastTarget = currentTarget; //Ancienne cible deivent la nouvelle
+                lastTarget.StartScan(); //et le scan commence 
+
+            }
+        }
+        else //Donc si le l'objet touché par le raycast n'est pas une target
+        {
+            loseTargetTimer += Time.deltaTime; //Le timer se remplit petit à petit tant que pas de cible détectée (le fait qu'il s'incrémente n'est pas dérangeant sur la durée puisque c'est chronométré le niveau)
+
+            if (loseTargetTimer > tempsDeplacement) //et s'il dépasse le cooldown donné
+            {
+                if (lastTarget != null) lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
+
+                lastTarget = null; //et on dit qu'on capte R (et current target est null puisque cette fonction s'active toutes les frames)
+            }
         }
     }
 
