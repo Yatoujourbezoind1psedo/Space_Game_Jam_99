@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class LaserManager : MonoBehaviour
 {
     [SerializeField] private GameObject laser; 
+    private float tauxScan; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,6 +15,7 @@ public class LaserManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Keyboard.current.spaceKey.isPressed) //action du laser
         {
             laser.SetActive(true);
@@ -21,6 +23,12 @@ public class LaserManager : MonoBehaviour
         else //je le laisse ici pour rajouter un son de fin du laser pt
         {
             laser.SetActive(false);
-        }
+        }*/
+    }
+
+    public void IncrementScan(float ptScan)
+    {
+        tauxScan += ptScan; 
+        Debug.Log(tauxScan); 
     }
 }

@@ -43,4 +43,15 @@ public class SpawnManagement : MonoBehaviour
         FollowPath sc = mete.GetComponent<FollowPath>(); // Récupère le script Follow Path
         sc.points = pointsChX; //Lui donne les points qu'il doit suivre
     }
+
+    //Créer fonction spawnant un meteor dans un chemin aléatoire (mais risque qu'emplacement l'un sur l'autre donc à voir)
+
+    //Créer fonction spawnant un nombre défini de météorite en même temps mais les emplacement sont aléatoires  (passer par tableau de path donc tableau de tableau de transform ?)
+    /*private void SpawnXMeteor(int nbMete)
+    {
+        for(int i = 0; i < nbMete; i++)
+        {
+            
+        }
+    }*/
 }
