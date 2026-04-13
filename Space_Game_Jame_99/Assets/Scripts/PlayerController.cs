@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.CompareTag("Obstacle")) //Si le joueur se fait toucher
         {
-            Debug.Log("ouch"); 
+            //Debug.Log("ouch"); 
             healthManager.TakeDamage(1); 
         }
     }

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        //Debug.Log("GAME OVER");
+
         panelGameOver.SetActive(true); 
         panelJeu.SetActive(false); 
 
@@ -20,27 +22,32 @@ public class GameManager : MonoBehaviour
 
         //ZA WARUDO AUDIO
         AudioListener.pause = true; 
+
     }
 
     public void GamePlay()
     {
-        panelGameOver.SetActive(false);
-        panelJeu.SetActive(true);
-
+        
         Time.timeScale = 1; 
         isGameRunning = true; 
 
         AudioListener.pause = false ; 
+
+        panelGameOver.SetActive(false);
+        panelJeu.SetActive(true);
+
     }
 
     public void Reset()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex); //build index = numéro dans le build settings 
-
         Time.timeScale = 1; 
-        isGameRunning = true;
+        
 
         AudioListener.pause = false; 
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex); //build index = numéro dans le build settings 
+    
+        //NE JAMAIS ACTIVER LE JEU DANS LE RESET !!! 
     } 
 }

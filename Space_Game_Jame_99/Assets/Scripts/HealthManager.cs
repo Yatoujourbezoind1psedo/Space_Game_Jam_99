@@ -5,21 +5,28 @@ using UnityEngine.InputSystem;
 public class HealthManager : MonoBehaviour
 {
     public Image healthBar; 
-    public float healthAmount = 5f; //Nombre de PV
+    [SerializeField] private float maxHealth = 5;
+    private float healthAmount ; //Nombre de PV
     private float healtAmountOrigin; 
 
     [SerializeField] private GameManager gameManager; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        healtAmountOrigin = healthAmount; 
+        healthAmount = maxHealth; 
+        healtAmountOrigin = maxHealth; 
+       
+
+        //Debug.Log("Start appelé, health = " + healthAmount);
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (healthAmount <= 0) // Donc GAME OVER
+        if (healthAmount <= 0 && gameManager.isGameRunning) // Donc GAME OVER
         {
             //Debug.Log("GAME OVER"); 
             gameManager.GameOver(); 
@@ -49,4 +56,5 @@ public void Heal(float healingAmount) //Pt bloquer au max de pv d'origine, à vo
         healthAmount = Mathf.Clamp(healthAmount, 0, healtAmountOrigin); //Permet d'éviter d'avoir plus de pv que le max et moins de PV que le min (zéro)
         healthBar.fillAmount = healthAmount / healtAmountOrigin; 
     }
+    
 }
