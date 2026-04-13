@@ -14,4 +14,14 @@ public class LaserManager : MonoBehaviour
         Debug.Log(tauxScan); 
         score.text = tauxScan.ToString()+"%";
     }
+
+    public void DecrementScan(float ptScanMoins)
+    {
+        if (tauxScan > 0)
+        {
+            tauxScan -= ptScanMoins; 
+            score.text = tauxScan.ToString()+"%";           
+        }
+
+    }
 }

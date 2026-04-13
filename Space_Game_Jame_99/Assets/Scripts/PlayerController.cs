@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private GameObject laser; 
 
+    [SerializeField] private GameManager gameManager; 
+
     private TargetController lastTarget; //Permet d'avoir un target controller null au démarage
     
 
@@ -27,8 +29,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleMouvement(); 
-        HandleLaser(); 
+        if (gameManager.isGameRunning)
+        {
+            HandleMouvement(); 
+            HandleLaser();   
+        }
         
     }
 

@@ -8,6 +8,8 @@ public class HealthManager : MonoBehaviour
     public float healthAmount = 5f; //Nombre de PV
     private float healtAmountOrigin; 
 
+    [SerializeField] private GameManager gameManager; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,9 +19,10 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (healthAmount <= 0) // Donc Game over
+        if (healthAmount <= 0) // Donc GAME OVER
         {
-            Debug.Log("GAME OVER"); 
+            //Debug.Log("GAME OVER"); 
+            gameManager.GameOver(); 
         }
 
         /* TEST
