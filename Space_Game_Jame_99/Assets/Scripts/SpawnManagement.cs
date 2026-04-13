@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManagement : MonoBehaviour
@@ -7,7 +8,10 @@ public class SpawnManagement : MonoBehaviour
     [SerializeField] private Transform chemin1, chemin2; 
     private Transform[] pointsCh1, pointsCh2; //Listes des points des chemins 
 
-
+    //gestion du rythme : 
+    [SerializeField] private AudioSource music; 
+    [SerializeField] private float bpm = 120f; 
+    private float nexBeatTime = 0f; //Permettra de jouer le beat 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,7 +38,14 @@ public class SpawnManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Gestion de la musique 
+        float interval = 60f / bpm; //temps interval = 60 secondes / Beat par minutes (souvent 120 donc interval = 0.5)
+
+        if (music.time >= nexBeatTime)
+        {
+            SpawnMeteor(0, pointsCh1); 
+            nexBeatTime += interval; 
+        }
     }
 
     private void SpawnMeteor(int meteorX, Transform[] pointsChX)
@@ -44,14 +55,4 @@ public class SpawnManagement : MonoBehaviour
         sc.points = pointsChX; //Lui donne les points qu'il doit suivre
     }
 
-    //Créer fonction spawnant un meteor dans un chemin aléatoire (mais risque qu'emplacement l'un sur l'autre donc à voir)
-
-    //Créer fonction spawnant un nombre défini de météorite en même temps mais les emplacement sont aléatoires  (passer par tableau de path donc tableau de tableau de transform ?)
-    /*private void SpawnXMeteor(int nbMete)
-    {
-        for(int i = 0; i < nbMete; i++)
-        {
-            
-        }
-    }*/
 }
