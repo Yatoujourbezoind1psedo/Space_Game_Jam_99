@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d24fd72b088fcc4c91c656727101a43
+guid: 392249cdd6db47443967133a925ac778
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "feu_fus\xE9e_0"
+      name: "Jud\xE9lia1_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1000
-        height: 650
+        height: 2000
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41f7b395f1d179545aea05a900cb75b5
-      internalID: 1743006514
+      spriteID: 6d411f2380109a0498ad97a4919456e3
+      internalID: -1206997774
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "feu_fus\xE9e_1"
+      name: "Jud\xE9lia1_1"
       rect:
         serializedVersion: 2
         x: 1000
         y: 0
         width: 1000
-        height: 650
+        height: 2000
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bce2173d9d3c63438af0367237a084b
-      internalID: 718401333
+      spriteID: 169734379aad7a14dbe9b6891212658d
+      internalID: 733555220
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "feu_fus\xE9e_2"
+      name: "Jud\xE9lia1_2"
       rect:
         serializedVersion: 2
         x: 2000
         y: 0
         width: 1000
-        height: 650
+        height: 2000
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f34e0233131d4194b8ec2dfe2ae7ca60
-      internalID: 888385535
+      spriteID: 79171823cdcfbad4d8efe8cb34f3b031
+      internalID: -1732374387
       vertices: []
       indices: 
       edges: []
@@ -166,7 +166,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d1fe6e1fcf94e4d449005c67e3358338
+    spriteID: 288fe445f4af9454ba8f6347d95d1cab
     internalID: 0
     vertices: []
     indices: 
@@ -176,11 +176,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":1000.0,"y":650.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":1000.0,"y":2000.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      "feu_fus\xE9e_0": 1743006514
-      "feu_fus\xE9e_1": 718401333
-      "feu_fus\xE9e_2": 888385535
+      "Jud\xE9lia1_0": -1206997774
+      "Jud\xE9lia1_1": 733555220
+      "Jud\xE9lia1_2": -1732374387
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
