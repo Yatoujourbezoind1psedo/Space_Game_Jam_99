@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float distance = 2; 
     [SerializeField] private int nbCanaux = 4; 
     private float xPlayer, xOrigine, loseTargetTimer;
-    public float tempsDeplacement = 0.2f; //Va permettre de faire verrou temporel (ou grace period) pour que dès que perso bouge alors on continue sur le même laser (sinon couperait le startscan())
+    public float tempsDeplacement = 0.3f; //Va permettre de faire verrou temporel (ou grace period) pour que dès que perso bouge alors on continue sur le même laser (sinon couperait le startscan())
 
     [SerializeField] private HealthManager healthManager; 
     [SerializeField] private float ptScan; 
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameManager gameManager; 
 
     private TargetController lastTarget; //Permet d'avoir un target controller null au démarage
+    private int ignoreFramesTP = 0; //Va s'incrémenter au mouvement pour skip quelques frames
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,12 +43,15 @@ public class PlayerController : MonoBehaviour
     {
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame && xPlayer > xOrigine) //gauche + peut pas aller en dessous de point de départ
         {
+            ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
             transform.position -= new Vector3(distance, 0f, 0f);
             xPlayer -= distance;
+            
         }
 
         if (Keyboard.current.rightArrowKey.wasPressedThisFrame && xPlayer < xOrigine * (distance * (nbCanaux - 1))) //droite + paramétrer pour aller que dans 5 canaux XORIGINE PAS ZERO
         {
+            ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
             transform.position += new Vector3(distance, 0f, 0f);
             xPlayer += distance; 
         }
@@ -78,8 +82,14 @@ public class PlayerController : MonoBehaviour
         //détection cible actuelle 
         if (Physics.SphereCast(transform.position, 0.5f, Vector3.left, out hit, rayDistance)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
         {
+            /*
             if (currentTarget == null && lastTarget != null) //Permet de se coller sur une target, comme ça permet téléportation
             {
+                currentTarget = lastTarget; 
+            }*/
+            if (ignoreFramesTP > 0) //La même chose qu'au dessus mais jsute pour deux frame (sécurité bonus en déplacement)
+            {
+                ignoreFramesTP --; 
                 currentTarget = lastTarget; 
             }
 
