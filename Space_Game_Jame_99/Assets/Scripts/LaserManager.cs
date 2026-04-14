@@ -11,7 +11,7 @@ public class LaserManager : MonoBehaviour
     public void IncrementScan(float ptScan)
     {
         tauxScan += ptScan; 
-        Debug.Log(tauxScan); 
+        //Debug.Log(tauxScan); 
         score.text = tauxScan.ToString()+"%";
     }
 

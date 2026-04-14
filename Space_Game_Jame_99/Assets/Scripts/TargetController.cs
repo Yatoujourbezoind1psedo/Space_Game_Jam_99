@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class TargetController : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class TargetController : MonoBehaviour
 
     private float timer, ptActuel = 0f;
     private bool isBeingScanned = false;
+
+    private Image fillImage;
+
+    void Start()
+    {
+        fillImage = GetComponentInChildren<Image>();
+    }
 
     void Update()
     {
@@ -31,6 +39,13 @@ public class TargetController : MonoBehaviour
                 timer = 0f; 
             }
             
+        }
+
+        fillImage.fillAmount = ptActuel / maxScan; 
+
+        if (ptActuel >= maxScan)
+        {
+            fillImage.color = Color.red; //Pour dire que c'est plein 
         }
     }
 

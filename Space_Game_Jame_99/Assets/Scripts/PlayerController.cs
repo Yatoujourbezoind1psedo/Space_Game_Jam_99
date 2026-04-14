@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
             if (loseTargetTimer > tempsDeplacement) //et s'il dépasse le cooldown donné
             {
+                Debug.Log("Perdu Cible"); 
                 if (lastTarget != null) lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
 
                 lastTarget = null; //et on dit qu'on capte R (et current target est null puisque cette fonction s'active toutes les frames)
