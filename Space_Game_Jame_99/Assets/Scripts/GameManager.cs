@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     //Récupération des panels de jeu et de game over pour le switch
     [SerializeField] private GameObject panelGameOver, panelJeu; 
 
+    [SerializeField] private AudioSource musiqueJeu, musiqueGameManager; 
+
+
 
     public void GameOver()
     {
@@ -20,12 +23,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         isGameRunning = false;
 
-        //ZA WARUDO AUDIO
-        AudioListener.pause = true; 
+        
+        
+        musiqueJeu.Stop(); //ZA WARUDO AUDIO
+        musiqueGameManager.Play(); //Générique fin
 
     }
 
-    public void GamePlay()
+    public void GamePlay() // A modif avec audio
     {
         
         Time.timeScale = 1; 
@@ -41,9 +46,6 @@ public class GameManager : MonoBehaviour
     public void Reset()
     {
         Time.timeScale = 1; 
-        
-
-        AudioListener.pause = false; 
 
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex); //build index = numéro dans le build settings 
