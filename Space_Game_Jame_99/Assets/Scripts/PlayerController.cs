@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour
 
     private TargetController lastTarget; //Permet d'avoir un target controller null au démarage
     private int ignoreFramesTP = 0; //Va s'incrémenter au mouvement pour skip quelques frames
-    
+    [SerializeField] private LaserManager laserManager; 
+
+    private float noTargetTimer = 0f;
+    [SerializeField] private float intervalNoTarget = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,26 +82,29 @@ public class PlayerController : MonoBehaviour
 
         Debug.DrawRay(transform.position, Vector3.left * rayDistance, Color.red); //Pour afficher dans scène (attention à Vector3.left, ici tire rayon à gauche)
 
+        
         //détection cible actuelle 
         if (Physics.SphereCast(transform.position, 0.5f, Vector3.left, out hit, rayDistance)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
         {
-            /*
-            if (currentTarget == null && lastTarget != null) //Permet de se coller sur une target, comme ça permet téléportation
-            {
-                currentTarget = lastTarget; 
-            }*/
-            if (ignoreFramesTP > 0) //La même chose qu'au dessus mais jsute pour deux frame (sécurité bonus en déplacement)
-            {
-                ignoreFramesTP --; 
-                currentTarget = lastTarget; 
-            }
+            
 
             if (hit.collider.CompareTag("Target"))
             {
                 currentTarget = hit.collider.GetComponent<TargetController>(); //si on touche une target on dit que la cible (current) = TargetController de l'impact
+                noTargetTimer = 0f; //Reset le fait de pas toucher cible dès qu'on détecte une target 
             }
         }
-        
+
+        /*
+        if (currentTarget == null && lastTarget != null) //Permet de se coller sur une target, comme ça permet téléportation
+        {
+            currentTarget = lastTarget; 
+        }*/
+        if (ignoreFramesTP > 0) //La même chose qu'au dessus mais jsute pour deux frame (sécurité bonus en déplacement)
+        {
+            ignoreFramesTP --; 
+            currentTarget = lastTarget; 
+        } 
         if (currentTarget != null) //si le current est pas nul, donc si on touche un target
         {
             loseTargetTimer = 0f; //Reset du timer car cible toujours détectée
@@ -115,17 +121,27 @@ public class PlayerController : MonoBehaviour
         }
         else //Donc si le l'objet touché par le raycast n'est pas une target
         {
-            if (lastTarget != null)
+            if (lastTarget != null) //permet de mettre un petit cooldown 
             {
                 loseTargetTimer += Mathf.Min(Time.deltaTime, 0.05f); //Le timer se remplit petit à petit tant que pas de cible détectée (le fait qu'il s'incrémente n'est pas dérangeant sur la durée puisque c'est chronométré le niveau)
 
-            if (loseTargetTimer > tempsDeplacement) //et s'il dépasse le cooldown donné
-            {
-                Debug.Log("Perdu Cible"); 
-                lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
+                if (loseTargetTimer > tempsDeplacement) //et s'il dépasse le cooldown donné
+                {
+                    Debug.Log("Perdu Cible"); 
+                    lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
 
-                lastTarget = null; //et on dit qu'on capte R (et current target est null puisque cette fonction s'active toutes les frames)
-            }
+                    lastTarget = null; //et on dit qu'on capte R (et current target est null puisque cette fonction s'active toutes les frames)
+                }
+            }else if (lastTarget == null) //Donc que toutes les targets sont nulles 
+            {
+                noTargetTimer += Time.deltaTime; 
+
+                if (noTargetTimer >= intervalNoTarget)
+                {
+                    laserManager.DecrementScan(1); //Perd un point dès que joueur tire à coté 
+                    noTargetTimer = 0f; 
+                }
+                
             }
             
         }

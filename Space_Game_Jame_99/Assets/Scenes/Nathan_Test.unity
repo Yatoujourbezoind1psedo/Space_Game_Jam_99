@@ -1993,12 +1993,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   distance: 2
   nbCanaux: 4
-  tempsDeplacement: 0.3
+  tempsDeplacement: 0.5
   healthManager: {fileID: 518577930}
   ptScan: 1
   rayDistance: 100
   laser: {fileID: 331555336}
   gameManager: {fileID: 518577932}
+  laserManager: {fileID: 518577931}
+  intervalNoTarget: 1
 --- !u!54 &1272878547
 Rigidbody:
   m_ObjectHideFlags: 0
