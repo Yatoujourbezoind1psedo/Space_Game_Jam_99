@@ -37,7 +37,7 @@ public class SpawnManagement : MonoBehaviour
             pointsCh4[i] = chemin4.GetChild(i); 
         }
 
-        SpawnMeteorsExceptChemin(0); 
+        //SpawnMeteorsExceptChemin(0); 
     }
 
     // Update is called once per frame
