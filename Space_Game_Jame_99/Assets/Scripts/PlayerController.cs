@@ -76,8 +76,13 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.left * rayDistance, Color.red); //Pour afficher dans scène (attention à Vector3.left, ici tire rayon à gauche)
 
         //détection cible actuelle 
-        if (Physics.Raycast(transform.position, Vector3.left, out hit, rayDistance)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
+        if (Physics.SphereCast(transform.position, 0.5f, Vector3.left, out hit, rayDistance)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
         {
+            if (currentTarget == null && lastTarget != null) //Permet de se coller sur une target, comme ça permet téléportation
+            {
+                currentTarget = lastTarget; 
+            }
+
             if (hit.collider.CompareTag("Target"))
             {
                 currentTarget = hit.collider.GetComponent<TargetController>(); //si on touche une target on dit que la cible (current) = TargetController de l'impact
@@ -100,15 +105,19 @@ public class PlayerController : MonoBehaviour
         }
         else //Donc si le l'objet touché par le raycast n'est pas une target
         {
-            loseTargetTimer += Time.deltaTime; //Le timer se remplit petit à petit tant que pas de cible détectée (le fait qu'il s'incrémente n'est pas dérangeant sur la durée puisque c'est chronométré le niveau)
+            if (lastTarget != null)
+            {
+                loseTargetTimer += Mathf.Min(Time.deltaTime, 0.05f); //Le timer se remplit petit à petit tant que pas de cible détectée (le fait qu'il s'incrémente n'est pas dérangeant sur la durée puisque c'est chronométré le niveau)
 
             if (loseTargetTimer > tempsDeplacement) //et s'il dépasse le cooldown donné
             {
                 Debug.Log("Perdu Cible"); 
-                if (lastTarget != null) lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
+                lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
 
                 lastTarget = null; //et on dit qu'on capte R (et current target est null puisque cette fonction s'active toutes les frames)
             }
+            }
+            
         }
     }
 
