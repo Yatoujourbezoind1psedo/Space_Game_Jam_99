@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class next_novel : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class next_novel : MonoBehaviour
     void Update()
     {
         // Si on appuie sur la touche
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Keyboard.current.anyKey.wasPressedThisFrame)
         {
             // On active le trigger défini dans l'Animator
             animator.SetTrigger("next");
