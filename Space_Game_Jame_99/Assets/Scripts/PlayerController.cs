@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         
         //détection cible actuelle 
-        if (Physics.SphereCast(transform.position, 0.5f, Vector3.left, out hit, rayDistance)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
+        if (Physics.Raycast(transform.position, Vector3.left * rayDistance, out hit)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
         {
             
 

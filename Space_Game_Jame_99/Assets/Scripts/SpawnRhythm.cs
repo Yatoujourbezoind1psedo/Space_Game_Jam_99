@@ -26,6 +26,8 @@ public class SpawnRhythm : MonoBehaviour
             spawnManagement.SpawnMeteorsExceptChemin(emplacementsManquants[index]); ;
             index++;
         }
+
+        //ajouter condition de victoire
     }
 
 

@@ -30,18 +30,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void GamePlay() // A modif avec audio
+    public void GamePlay() 
     {
         
         Time.timeScale = 1; 
         isGameRunning = true; 
 
-        AudioListener.pause = false ; 
+        musiqueJeu.Play(); 
 
         panelGameOver.SetActive(false);
         panelJeu.SetActive(true);
 
     }
+
+    
 
     public void Reset()
     {
@@ -50,6 +52,6 @@ public class GameManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex); //build index = numéro dans le build settings 
     
-        //NE JAMAIS ACTIVER LE JEU DANS LE RESET !!! 
+        //NE JAMAIS ACTIVER LE JEU DANS LE RESET !!! PAS DE isGameRunning = true !!!!! 
     } 
 }
