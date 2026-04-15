@@ -13,12 +13,16 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private float tempsRemplissage = 2f; 
     private float tauxRemplissage; 
 
+    [SerializeField] private float cooldownSeuil = 0f; 
+    private float coolDownTimer; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         healthAmount = maxHealth; 
         healtAmountOrigin = maxHealth; 
        
+        coolDownTimer = cooldownSeuil; 
 
         //Debug.Log("Start appelé, health = " + healthAmount);
 
@@ -36,6 +40,10 @@ public class HealthManager : MonoBehaviour
 
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthAmount / healtAmountOrigin, Time.deltaTime * tempsRemplissage);
 
+        if (coolDownTimer > 0f)
+        {
+            coolDownTimer -= Time.deltaTime;
+        }
 
         /* TEST
         if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -51,8 +59,13 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        healthAmount -= damage;
-        tauxRemplissage = healthAmount / healtAmountOrigin; 
+        if (coolDownTimer <= 0f)
+        {
+            healthAmount -= damage;
+            tauxRemplissage = healthAmount / healtAmountOrigin; 
+            coolDownTimer = cooldownSeuil; 
+        }
+
     }
 
 public void Heal(float healingAmount) //Pt bloquer au max de pv d'origine, à voir
