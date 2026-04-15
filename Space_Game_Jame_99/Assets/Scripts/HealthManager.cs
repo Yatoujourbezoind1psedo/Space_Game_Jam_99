@@ -7,9 +7,11 @@ public class HealthManager : MonoBehaviour
     public Image healthBar; 
     [SerializeField] private float maxHealth = 5;
     private float healthAmount ; //Nombre de PV
-    private float healtAmountOrigin; 
+    private float healtAmountOrigin;
 
     [SerializeField] private GameManager gameManager; 
+    [SerializeField] private float tempsRemplissage = 2f; 
+    private float tauxRemplissage; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -32,6 +34,9 @@ public class HealthManager : MonoBehaviour
             gameManager.GameOver(); 
         }
 
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, healthAmount / healtAmountOrigin, Time.deltaTime * tempsRemplissage);
+
+
         /* TEST
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
@@ -47,14 +52,14 @@ public class HealthManager : MonoBehaviour
     public void TakeDamage(float damage)
     {
         healthAmount -= damage;
-        healthBar.fillAmount = healthAmount / healtAmountOrigin; // ON prend la barre et on lui donne le nombre de pv divisé par le nombre de pv de base 
+        tauxRemplissage = healthAmount / healtAmountOrigin; 
     }
 
 public void Heal(float healingAmount) //Pt bloquer au max de pv d'origine, à voir
     {
         healthAmount += healingAmount;
         healthAmount = Mathf.Clamp(healthAmount, 0, healtAmountOrigin); //Permet d'éviter d'avoir plus de pv que le max et moins de PV que le min (zéro)
-        healthBar.fillAmount = healthAmount / healtAmountOrigin; 
+        tauxRemplissage = healthAmount / healtAmountOrigin; 
     }
     
 }

@@ -11,6 +11,8 @@ public class TargetController : MonoBehaviour
     private float timer, ptActuel = 0f;
     private bool isBeingScanned = false;
 
+    [SerializeField] float waitTime = 2.0f; 
+
     private Image fillImage;
 
     void Start()
@@ -40,8 +42,9 @@ public class TargetController : MonoBehaviour
             }
             
         }
-
-        fillImage.fillAmount = ptActuel / maxScan; 
+        
+        float remplissage = ptActuel /maxScan; 
+        fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, remplissage, Time.deltaTime * waitTime); //valeur linéaire entre début, fin et le temps pour passe de l'un à l'autre 
 
         if (ptActuel >= maxScan)
         {
