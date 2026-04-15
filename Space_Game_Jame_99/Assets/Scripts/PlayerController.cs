@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     public float tempsDeplacement = 0.3f; //Va permettre de faire verrou temporel (ou grace period) pour que dès que perso bouge alors on continue sur le même laser (sinon couperait le startscan())
 
     [SerializeField] private HealthManager healthManager; 
-    [SerializeField] private float ptScan; 
+    [SerializeField] private float ptScan, vitesseVisu; 
     [SerializeField] private float rayDistance = 10f;
-    [SerializeField] private GameObject laser; 
+    [SerializeField] private GameObject visuel, laser; 
 
     [SerializeField] private GameManager gameManager; 
 
@@ -44,6 +44,13 @@ public class PlayerController : MonoBehaviour
     //Logique de déplacement
     private void HandleMouvement()
     {
+        //visuel déplacement (séparation visuel et hitbox pour que pas punitif avec tp et à la fois visuel)
+        visuel.transform.position = Vector3.Lerp( //On va aller vers à l'aide d'un vector 3
+            visuel.transform.position, //on part de la position de départ
+            new Vector3(xPlayer, visuel.transform.position.y, visuel.transform.position.z), //L'arrivé c'est un truc du genre Nouveau x, même y, même z
+            Time.deltaTime * vitesseVisu //en temps de vitesse visu en seconde 
+        ); 
+
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame && xPlayer > xOrigine) //gauche + peut pas aller en dessous de point de départ
         {
             ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
@@ -52,11 +59,12 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame && xPlayer < xOrigine * (distance * (nbCanaux - 1))) //droite + paramétrer pour aller que dans 5 canaux XORIGINE PAS ZERO
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame && xPlayer < xOrigine * (distance * (nbCanaux - 1))) //droite + paramétrer pour aller que dans 4 canaux XORIGINE PAS ZERO
         {
             ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
             transform.position += new Vector3(distance, 0f, 0f);
             xPlayer += distance; 
+
         }
     }
 
