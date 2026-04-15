@@ -23,11 +23,17 @@ public class PlayerController : MonoBehaviour
     private float noTargetTimer = 0f;
     [SerializeField] private float intervalNoTarget = 1f;
 
+    private AudioSource audioSourceDaron;
+    private bool isScanning; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         xPlayer = transform.position.x; 
         xOrigine = transform.position.x;
+
+        //récupération audiosource parent
+        audioSourceDaron = GetComponentInParent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -73,6 +79,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!Keyboard.current.spaceKey.isPressed) //Si espace est pas pressé on (ca veut dire que la dernière cible doit cessé son décompte et que l'on vise rien maintenant)
         {
+            isScanning = false; 
+
             laser.SetActive(false); //Fait disparaitre visuel du laser
             if (lastTarget != null) //si la dernière cible n'est pas présente et donc que j'avais scan une target
             {
@@ -83,6 +91,14 @@ public class PlayerController : MonoBehaviour
         }
 
         //Si espace a été pressé
+
+        //gerstion de l'audio
+        if (!isScanning)
+        {  
+            audioSourceDaron.Play(); 
+        }
+
+        isScanning = true; 
         
         RaycastHit hit; //info du raycast 
         laser.SetActive(true); //fait apparaitre le visuel du laser
