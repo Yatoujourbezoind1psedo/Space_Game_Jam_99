@@ -40,11 +40,6 @@ public class SpawnManagement : MonoBehaviour
         //SpawnMeteorsExceptChemin(0); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
 /*
     public void SpawnMeteor1()
     {
