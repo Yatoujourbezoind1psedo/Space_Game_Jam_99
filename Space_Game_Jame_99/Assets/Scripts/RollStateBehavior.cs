@@ -10,7 +10,6 @@ public class RollStateBehavior : StateMachineBehaviour
         animator.ResetTrigger("L");
         animator.ResetTrigger("R");
         
-        Debug.Log("Triggers nettoyés au début de l'anim.");
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 {
