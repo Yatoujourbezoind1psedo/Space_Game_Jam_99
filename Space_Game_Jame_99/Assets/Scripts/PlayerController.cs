@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSourceDaron;
     private bool isScanning; 
 
+    private Animator animatorVisu; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +36,10 @@ public class PlayerController : MonoBehaviour
 
         //récupération audiosource parent
         audioSourceDaron = GetComponentInParent<AudioSource>();
+
+        //Récupération animator du visu
+        animatorVisu = visuel.GetComponent<Animator>(); 
+        
     }
 
     // Update is called once per frame
@@ -62,6 +68,9 @@ public class PlayerController : MonoBehaviour
             ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
             transform.position -= new Vector3(distance, 0f, 0f);
             xPlayer -= distance;
+
+            //Visu roll
+            animatorVisu.SetTrigger("Roll"); 
             
         }
 
@@ -71,7 +80,17 @@ public class PlayerController : MonoBehaviour
             transform.position += new Vector3(distance, 0f, 0f);
             xPlayer += distance; 
 
+            animatorVisu.SetTrigger("Roll"); 
         }
+
+        //Pour qu'anim joue une fois 
+        AnimatorStateInfo infoAnim = animatorVisu.GetCurrentAnimatorStateInfo(0); 
+
+        if(infoAnim.IsName("Rolling") && infoAnim.normalizedTime >= 0.9f) //Si Rolling est arrivé à 1 (donc joué entièrement) (mis un peu avant fin pour éviter souci)
+        {
+            animatorVisu.ResetTrigger("Roll"); //Alors j'annule le roll
+        }
+        
     }
 
     //gestion du laser du joueur 
