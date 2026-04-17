@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
             //Visu roll
             animatorVisu.SetTrigger("Roll"); 
+            animatorVisu.ResetTrigger("R");
+            animatorVisu.SetTrigger("L");
             
         }
 
@@ -81,15 +83,13 @@ public class PlayerController : MonoBehaviour
             xPlayer += distance; 
 
             animatorVisu.SetTrigger("Roll"); 
+            animatorVisu.ResetTrigger("L");
+            animatorVisu.SetTrigger("R");
+            
         }
 
         //Pour qu'anim joue une fois 
-        AnimatorStateInfo infoAnim = animatorVisu.GetCurrentAnimatorStateInfo(0); 
-
-        if(infoAnim.IsName("Rolling") && infoAnim.normalizedTime >= 0.9f) //Si Rolling est arrivé à 1 (donc joué entièrement) (mis un peu avant fin pour éviter souci)
-        {
-            animatorVisu.ResetTrigger("Roll"); //Alors j'annule le roll
-        }
+        
         
     }
 
