@@ -3,8 +3,8 @@ using UnityEngine;
 public class SpawnManagement : MonoBehaviour
 {
     [SerializeField] private GameObject[] meteors; 
-    [SerializeField] public float globalSpeed = 10f; // La vitesse unique
-    [SerializeField] public AudioSource musicSource; // La musique à glisser ici !
+    [SerializeField] public float globalSpeed = 10f; 
+    [SerializeField] public AudioSource musicSource; 
 
     [SerializeField] private Transform chemin1, chemin2, chemin3, chemin4; 
     private Transform[] pointsCh1, pointsCh2, pointsCh3, pointsCh4; 
@@ -18,6 +18,7 @@ public class SpawnManagement : MonoBehaviour
     }
 
     private Transform[] GetPoints(Transform parent) {
+        if (parent == null) return null;
         Transform[] pts = new Transform[parent.childCount];
         for(int i = 0; i < parent.childCount; i++) pts[i] = parent.GetChild(i);
         return pts;
@@ -25,23 +26,32 @@ public class SpawnManagement : MonoBehaviour
 
     public void SpawnMeteor(int meteorX, Transform[] pointsChX)
     {
-        if(meteors == null || meteors.Length == 0) return;
+        // On vérifie si l'index demandé existe dans ton tableau de prefabs
+        if(meteors == null || meteorX >= meteors.Length || meteors[meteorX] == null) return;
 
         GameObject mete = Instantiate(meteors[meteorX], pointsChX[0].position, meteors[meteorX].transform.rotation);
         FollowPath sc = mete.GetComponent<FollowPath>();
         
-        sc.points = pointsChX;
-        sc.speed = globalSpeed;
-        // On donne la musique à la météorite pour son debug
-        sc.SetMusicSource(musicSource); 
+        if (sc != null) {
+            sc.points = pointsChX;
+            sc.speed = globalSpeed;
+            sc.SetMusicSource(musicSource); 
+        }
     }
 
     public void SpawnMeteorsExceptChemin(int oubli)
     {
+        // On définit nos 4 listes de points
         Transform[][] listes = { pointsCh1, pointsCh2, pointsCh3, pointsCh4 };
+        
         for (int i = 0; i < listes.Length; i++)
         {
-            if ((i + 1) != oubli) SpawnMeteor(0, listes[i]);
+            // (i + 1) car tes emplacements dans le rythme vont de 1 à 4
+            if ((i + 1) != oubli) 
+            {
+                // On reprend l'index 0 comme avant pour être sûr d'avoir le bon prefab
+                SpawnMeteor(0, listes[i]);
+            }
         }
     }
 
@@ -58,7 +68,7 @@ public class SpawnManagement : MonoBehaviour
         if (points == null || points.Length < 3) return 0f;
 
         float distanceTotale = 0f;
-        // Distance jusqu'au point 3 (index 2)
+        // Distance jusqu'au point d'impact (index 2)
         for (int i = 0; i < 2; i++)
         {
             distanceTotale += Vector3.Distance(points[i].position, points[i+1].position);
