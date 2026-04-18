@@ -9,7 +9,7 @@ public class DisparitionApresXTemps : MonoBehaviour
     void Start()
     {
         //PlayerPrefs.SetFloat("afficherElements", tempsDisparition);
-        afficherElement = PlayerPrefs.GetFloat("afficherElements", tempsDisparition); //Récupère souvent temps disparition, sauf si on est déjà arrivé à une fin
+        afficherElement = tempsDisparition; //Récupère souvent temps disparition, sauf si on est déjà arrivé à une fin
         //Debug.Log(afficherElement); 
 
 
@@ -27,7 +27,7 @@ public class DisparitionApresXTemps : MonoBehaviour
         else
         {
             this.gameObject.SetActive(false);   
-            PlayerPrefs.SetFloat("afficherElements", 0f);
+            
         }
 
     }
