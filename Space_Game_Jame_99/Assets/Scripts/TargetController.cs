@@ -3,63 +3,61 @@ using UnityEngine.UI;
 
 public class TargetController : MonoBehaviour
 {
-    [SerializeField] LaserManager laserManager;
-    [SerializeField] private float ptScan, ptScanMoins = 1f;
-    [SerializeField] private float interval = 3f;
+    [SerializeField] private LaserManager laserManager;
+    [SerializeField] private float vitesseScan = 5f; 
+    [SerializeField] private float ptScanMoins = 1f;
     [SerializeField] private float maxScan = 20f;
 
-    private float timer, ptActuel = 0f;
+    private float ptActuel = 0f;
     private bool isBeingScanned = false;
 
-    [SerializeField] float waitTime = 2.0f; 
-
+    [Header("Visuel")]
+    [SerializeField] private float vitesseRemplissageImage = 10f; // Plus c'est haut, plus c'est rapide
     private Image fillImage;
 
     void Start()
     {
         fillImage = GetComponentInChildren<Image>();
+        if (fillImage != null) fillImage.fillAmount = 0;
     }
 
     void Update()
     {
-        if (!isBeingScanned) return;
-
-        timer += Time.deltaTime;
-
-        if (timer >= interval)
+        // 1. Calcul du score (logique)
+        if (isBeingScanned)
         {
-            if(maxScan > ptActuel)
+            if (ptActuel < maxScan)
             {
-                ptActuel += ptScan; 
-                laserManager.IncrementScan(ptScan);
-                timer = 0f;
+                float pointsCetteFrame = vitesseScan * Time.deltaTime;
+                ptActuel += pointsCetteFrame;
+                laserManager.IncrementScan(pointsCetteFrame);
             }
-            else //donc le target est full
+            else 
             {
-                //Debug.Log("FULL");
-                laserManager.DecrementScan(ptScanMoins); 
-                timer = 0f; 
+                laserManager.DecrementScan(ptScanMoins * Time.deltaTime); 
             }
+        }
+
+        // 2. Mise à jour du visuel (toujours exécuté pour que le Lerp finisse son travail)
+        if (fillImage != null)
+        {
+            float ratioCible = ptActuel / maxScan;
             
+            // Option A : Remplissage fluide mais rapide (recommandé)
+            fillImage.fillAmount = Mathf.MoveTowards(fillImage.fillAmount, ratioCible, vitesseRemplissageImage * Time.deltaTime);
+
+            /* Note : Si tu veux que ce soit INSTANTANÉ sans animation, utilise :
+               fillImage.fillAmount = ratioCible; 
+            */
+
+            // Changement de couleur quand c'est fini
+            if (ptActuel >= maxScan)
+            {
+                fillImage.color = Color.red;
+            }
         }
-        
-        float remplissage = ptActuel /maxScan; 
-        fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, remplissage, Time.deltaTime * waitTime); //valeur linéaire entre début, fin et le temps pour passe de l'un à l'autre 
-
-        if (ptActuel >= maxScan)
-        {
-            fillImage.color = Color.red; //Pour dire que c'est plein 
-        }
     }
 
-    public void StartScan()
-    {
-        isBeingScanned = true;
-    }
-
-    public void StopScan()
-    {
-        isBeingScanned = false;
-        timer = 0f;
-    }
+    public void StartScan() => isBeingScanned = true;
+    public void StopScan() => isBeingScanned = false;
 }

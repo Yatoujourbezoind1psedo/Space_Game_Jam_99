@@ -50,6 +50,6 @@ public class FollowPath : MonoBehaviour
         int seconds = Mathf.FloorToInt(timeToLog % 60f);
         int milliseconds = Mathf.FloorToInt((timeToLog * 1000f) % 1000f);
 
-        Debug.Log(string.Format("<color=cyan>IMPACT AUDIO à : {0:00}:{1:00}:{2:000}</color>", minutes, seconds, milliseconds));
+        
     }
 }

@@ -16,20 +16,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject laser; 
 
     [Header("Paramètres Laser")]
-    [SerializeField] private float rayDistance = 10f;
     [SerializeField] private float intervalNoTarget = 1f;
     [SerializeField] private float tempsDeplacement = 0.3f;
 
     [Header("Effets d'Impact")]
-    [SerializeField] private GameObject explosionObject; // L'objet déjà présent dans ta scène
-    [SerializeField] private float dureeExplosion = 0.5f; // Temps avant de recacher l'objet
+    [SerializeField] private GameObject explosionObject; 
 
-    // Variables internes
     private float xPlayer, xOrigine;
     private float noTargetTimer, loseTargetTimer;
     private int ignoreFramesTP = 0;
     private bool isScanning;
+    
+    private TargetController currentTargetInTrigger; 
     private TargetController lastTarget;
+    
     private AudioSource audioSourceDaron;
     private Animator animatorVisu;
     
@@ -39,17 +39,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         xOrigine = transform.position.x; 
-        float xPositionDepart = xOrigine + distance; 
-        xPlayer = xPositionDepart;
-
-        Vector3 startPos = new Vector3(xPositionDepart, transform.position.y, transform.position.z);
+        xPlayer = xOrigine + distance;
+        Vector3 startPos = new Vector3(xPlayer, transform.position.y, transform.position.z);
         transform.position = startPos;
         if (visuel != null) visuel.transform.position = startPos;
-
         audioSourceDaron = GetComponentInParent<AudioSource>();
         if (visuel != null) animatorVisu = visuel.GetComponent<Animator>();
-
-        // Sécurité : On cache l'explosion au démarrage
         if (explosionObject != null) explosionObject.SetActive(false);
     }
 
@@ -58,7 +53,7 @@ public class PlayerController : MonoBehaviour
         if (gameManager != null && gameManager.isGameRunning)
         {
             HandleMouvement(); 
-            HandleLaser();   
+            HandleLaserLogic(); 
         }
     }
 
@@ -70,7 +65,6 @@ public class PlayerController : MonoBehaviour
             xPlayer -= distance;
             PlayAnim("L");
         }
-
         if (Keyboard.current.rightArrowKey.wasPressedThisFrame && xPlayer < xOrigine + (distance * (nbCanaux - 1)))
         {
             ignoreFramesTP = 6;
@@ -80,38 +74,26 @@ public class PlayerController : MonoBehaviour
 
         Vector3 targetPos = new Vector3(xPlayer, transform.position.y, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocityHitbox, smoothTime);
-
-        if (visuel != null)
-        {
-            visuel.transform.position = Vector3.SmoothDamp(visuel.transform.position, targetPos, ref velocityVisuel, smoothTime);
-        }
+        if (visuel != null) visuel.transform.position = Vector3.SmoothDamp(visuel.transform.position, targetPos, ref velocityVisuel, smoothTime);
     }
 
-    private void HandleLaser()
+    private void HandleLaserLogic()
     {
         if (!Keyboard.current.spaceKey.isPressed)
         {
-            isScanning = false; 
-            laser.SetActive(false);
-            if (lastTarget != null) { lastTarget.StopScan(); lastTarget = null; }
+            if (isScanning)
+            {
+                isScanning = false;
+                laser.SetActive(false);
+                if (lastTarget != null) { lastTarget.StopScan(); lastTarget = null; }
+            }
             return;
         }
 
         if (!isScanning) { if(audioSourceDaron) audioSourceDaron.Play(); isScanning = true; }
-
         laser.SetActive(true);
-        RaycastHit hit;
-        TargetController currentTarget = null;
 
-        if (Physics.Raycast(transform.position, Vector3.left * rayDistance, out hit))
-        {
-            if (hit.collider.CompareTag("Target"))
-            {
-                currentTarget = hit.collider.GetComponent<TargetController>();
-                noTargetTimer = 0f;
-            }
-        }
-
+        TargetController currentTarget = currentTargetInTrigger;
         if (ignoreFramesTP > 0) { ignoreFramesTP--; currentTarget = lastTarget; }
 
         if (currentTarget != null)
@@ -129,22 +111,19 @@ public class PlayerController : MonoBehaviour
             if (lastTarget != null)
             {
                 loseTargetTimer += Mathf.Min(Time.deltaTime, 0.05f);
-                if (loseTargetTimer > tempsDeplacement)
-                {
-                    lastTarget.StopScan();
-                    lastTarget = null;
-                }
+                if (loseTargetTimer > tempsDeplacement) { lastTarget.StopScan(); lastTarget = null; }
             }
             else
             {
                 noTargetTimer += Time.deltaTime;
-                if (noTargetTimer >= intervalNoTarget)
-                {
-                    laserManager.DecrementScan(1);
-                    noTargetTimer = 0f;
-                }
+                if (noTargetTimer >= intervalNoTarget) { laserManager.DecrementScan(1); noTargetTimer = 0f; }
             }
         }
+    }
+
+    public void SetCurrentTarget(TargetController target)
+    {
+        currentTargetInTrigger = target;
     }
 
     private void PlayAnim(string side)
@@ -156,24 +135,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-{
-    if (other.transform.root == transform.root) return;
-
-    if (other.CompareTag("Obstacle")) 
     {
-        if(healthManager != null) healthManager.TakeDamage(1);
-
-        if (explosionObject != null)
+        if (other.transform.root == transform.root) return;
+        if (other.CompareTag("Obstacle")) 
         {
-            // On l'active, le script ExplosionEffect fera le reste !
-            explosionObject.SetActive(false); // On force un reset au cas où il était déjà actif
-            explosionObject.SetActive(true);
+            if(healthManager != null) healthManager.TakeDamage(1);
+            if (explosionObject != null) { explosionObject.SetActive(false); explosionObject.SetActive(true); }
         }
-    }
-}
-
-    private void CacherExplosion()
-    {
-        if (explosionObject != null) explosionObject.SetActive(false);
     }
 }
