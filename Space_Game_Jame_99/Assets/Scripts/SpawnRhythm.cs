@@ -52,8 +52,9 @@ public class SpawnRhythm : MonoBehaviour
 
         if (currentBeatTimes == null || index >= currentBeatTimes.Length || music == null) return;  //pas de piste trouvée ou index plus grand que nombre de beats ou pas de muique
 
-        if (!finPiste && (index >= currentEmplacements.Length || !music.isPlaying)) //fin des apparitions ou de la musique
+        if (!finPiste && (index >= currentEmplacements.Length || (!music.isPlaying && index >= 3))) //fin des apparitions ou de la musique
         {
+            Debug.Log("ginito pipo la"+music.isPlaying);
             finPiste = true; 
             gameManager.isMusicFinished = true;
             return; 
