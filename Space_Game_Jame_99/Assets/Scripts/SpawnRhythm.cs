@@ -18,6 +18,7 @@ public class SpawnRhythm : MonoBehaviour
     private int index = 0;
     private SpawnManagement spawnManagement; 
     private AudioSource music;
+    private bool finPiste = false; 
 
     void Start()
     {
@@ -51,9 +52,10 @@ public class SpawnRhythm : MonoBehaviour
 
         if (currentBeatTimes == null || index >= currentBeatTimes.Length || music == null) return;  //pas de piste trouvée ou index plus grand que nombre de beats ou pas de muique
 
-        if (index >= currentEmplacements.Length || !music.isPlaying) //fin des apparitions ou de la musique
+        if (!finPiste && (index >= currentEmplacements.Length || !music.isPlaying)) //fin des apparitions ou de la musique
         {
-            gameManager.isGameWinned = true;
+            finPiste = true; 
+            gameManager.isMusicFinished = true;
             return; 
         }
 
