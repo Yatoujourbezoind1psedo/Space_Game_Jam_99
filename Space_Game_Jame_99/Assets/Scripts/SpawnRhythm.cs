@@ -20,6 +20,8 @@ public class SpawnRhythm : MonoBehaviour
     private int[] emplacementsManquants2 ; 
     private float[] beatTimes2; 
 
+    [SerializeField] private GameManager gameManager;
+
     
     void Start()
     {
@@ -30,7 +32,11 @@ public class SpawnRhythm : MonoBehaviour
     void Update()
     {
 
-        if (index >= beatTimesTest.Length) return ; // si on a fini la piste on arrête          //ajouter condition de victoire
+        if (index >= beatTimesTest.Length) // si on a fini la piste on arrête  
+        {
+            gameManager.isGameWinned = true; 
+            return; 
+        } ; 
 
 
         switch (lvPlayed) //si on a pas fini la piste on va chercher au bon endroit
