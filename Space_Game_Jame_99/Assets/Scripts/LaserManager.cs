@@ -1,37 +1,36 @@
-using System;
 using UnityEngine;
 using TMPro;
 
 public class LaserManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI score; 
-    private float tauxScan; 
+    private float tauxScan = 0f; 
     public float tauxScanMax = 100f; 
+
     public void IncrementScan(float ptScan)
     {
-        if (tauxScan < tauxScanMax)
-        {
-            tauxScan += ptScan; 
-            //Debug.Log(tauxScan); 
-            score.text = tauxScan.ToString()+"%";
-        }
-
+        tauxScan = Mathf.Min(tauxScan + ptScan, tauxScanMax); // Bloque au max
+        UpdateUI();
     }
 
     public void DecrementScan(float ptScanMoins)
     {
-        if (tauxScan > 0)
-        {
-            tauxScan -= ptScanMoins; 
-            score.text = tauxScan.ToString()+"%";           
-        }
-
+        tauxScan = Mathf.Max(tauxScan - ptScanMoins, 0); // Bloque à 0
+        UpdateUI();
     }
 
-    public float GetTauxScanPourCent() //si c'est égal à 100 alors le max a été atteint 
+    private void UpdateUI()
     {
-        
-        return (tauxScan / tauxScanMax) * 100; //Je passe par des entiers pour pas avoir de souci 
+        if (score != null)
+        {
+            // On affiche l'entier (Mathf.FloorToInt) pour que ce soit propre
+            score.text = Mathf.FloorToInt(tauxScan).ToString() + "%";
+        }
     }
 
+    public float GetTauxScanPourCent()
+    {
+        // Ton tauxScan étant déjà sur 100, on retourne juste la valeur
+        return (tauxScan / tauxScanMax) * 100f;
+    }
 }
