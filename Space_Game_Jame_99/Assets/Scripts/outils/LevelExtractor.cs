@@ -1,45 +1,50 @@
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.InputSystem; // Requis pour Keyboard.current
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.IO;
 
 public class LevelExtractor : MonoBehaviour
 {
-    [Header("Configuration Vidéo")]
     public VideoPlayer videoPlayer;
     public RenderTexture renderTexture;
 
-    [Header("Points de détection (Coordonnées 0 à 1)")]
-    [Tooltip("X et Y entre 0 et 1. Exemple: 0.5 est le milieu.")]
+    [Header("Points de détection (0 à 1)")]
     public Vector2[] detectionPoints = new Vector2[4]; 
     
     [Header("Couleurs Cibles")]
     public Color colorVoie1 = Color.blue;
     public Color colorVoie2 = Color.red;
     public Color colorVoie3 = Color.green;
-    public Color colorVoie4 = new Color(1f, 0f, 1f); // Rose / Magenta
+    public Color colorVoie4 = new Color(1f, 0f, 1f);
 
-    [Header("Paramètres d'Analyse")]
-    [Range(0f, 1f)] public float tolerance = 0.2f;
-    public string fileName = "Niveau_Expert_Data.txt";
+    [Header("Filtre Anti-Bruit (Important)")]
+    [Range(0f, 1f)] public float tolerance = 0.25f;
+    [Tooltip("Nombre d'images suivies pour confirmer une note (3-5 conseillé)")]
+    public int framesDeConfirmation = 4;
+    [Tooltip("Temps mort entre deux notes (0.15 = 150ms)")]
+    public float cooldownNote = 0.15f;
 
     private List<float> beatTimes = new List<float>();
     private List<int> lanes = new List<int>();
-    private bool[] isDetecting = new bool[4];
+    
+    // Variables de suivi interne
+    private bool[] isCurrentlyDetecting = new bool[4];
+    private int[] consecutiveFrames = new int[4];
+    private float[] potentialStartTime = new float[4];
+    private float[] lastRecordedTime = new float[4];
+
+    void Start()
+    {
+        videoPlayer.skipOnDrop = false;
+        for (int i = 0; i < 4; i++) lastRecordedTime[i] = -10f;
+    }
 
     void Update()
     {
-        // 1. On vérifie si on doit sauvegarder (Touche S)
-        if (Keyboard.current.sKey.wasPressedThisFrame)
-        {
-            ExportToFile();
-            return;
-        }
-
+        if (Keyboard.current.sKey.wasPressedThisFrame) { ExportToFile(); return; }
         if (!videoPlayer.isPlaying) return;
 
-        // 2. Extraction des pixels de la RenderTexture
         Texture2D tempTex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
         RenderTexture.active = renderTexture;
         tempTex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
@@ -47,83 +52,78 @@ public class LevelExtractor : MonoBehaviour
 
         Color[] targetColors = { colorVoie1, colorVoie2, colorVoie3, colorVoie4 };
 
-        // 3. Analyse des 4 points de détection
         for (int i = 0; i < 4; i++)
         {
             int px = (int)(detectionPoints[i].x * renderTexture.width);
             int py = (int)(detectionPoints[i].y * renderTexture.height);
-
             Color pixelColor = tempTex.GetPixel(px, py);
 
             if (IsColorMatch(pixelColor, targetColors[i]))
             {
-                if (!isDetecting[i])
+                // ÉTAPE 1 : C'est la première fois qu'on voit la couleur
+                if (consecutiveFrames[i] == 0)
                 {
-                    RecordData(i + 1);
-                    isDetecting[i] = true;
+                    // On mémorise la frame exacte du début au cas où c'est une vraie note
+                    potentialStartTime[i] = (float)(videoPlayer.frame / videoPlayer.frameRate);
+                }
+
+                consecutiveFrames[i]++;
+
+                // ÉTAPE 2 : On a assez de frames pour confirmer (ex: 4 frames d'affilée)
+                if (consecutiveFrames[i] >= framesDeConfirmation && !isCurrentlyDetecting[i])
+                {
+                    // ÉTAPE 3 : On vérifie si ce n'est pas un doublon (cooldown)
+                    if ((potentialStartTime[i] - lastRecordedTime[i]) > cooldownNote)
+                    {
+                        RecordData(i + 1, potentialStartTime[i]);
+                        lastRecordedTime[i] = potentialStartTime[i];
+                        isCurrentlyDetecting[i] = true;
+                    }
                 }
             }
             else
             {
-                isDetecting[i] = false;
+                // La couleur a disparu : on reset les compteurs pour cette voie
+                consecutiveFrames[i] = 0;
+                isCurrentlyDetecting[i] = false;
             }
         }
 
-        // Nettoyage pour éviter les fuites de mémoire (très important ici)
         RenderTexture.active = null;
         Destroy(tempTex);
+
+        // Auto-save
+        if (videoPlayer.frame >= (long)videoPlayer.frameCount - 1 && videoPlayer.frameCount > 0)
+        {
+            ExportToFile();
+            videoPlayer.Stop();
+        }
     }
 
     bool IsColorMatch(Color pixel, Color target)
     {
-        // Calcul de la différence de couleur (Distance Manhattan)
-        float diff = Mathf.Abs(pixel.r - target.r) + Mathf.Abs(pixel.g - target.g) + Mathf.Abs(pixel.b - target.b);
-        return diff < tolerance;
+        return Mathf.Abs(pixel.r - target.r) + Mathf.Abs(pixel.g - target.g) + Mathf.Abs(pixel.b - target.b) < tolerance;
     }
 
-    void RecordData(int lane)
+    void RecordData(int lane, float time)
     {
-        float time = (float)System.Math.Round(videoPlayer.time, 2);
-        beatTimes.Add(time);
+        beatTimes.Add((float)System.Math.Round(time, 3));
         lanes.Add(lane);
-        
-        string hex = ColorUtility.ToHtmlStringRGB(GetColorForLane(lane));
-        Debug.Log($"<color=#{hex}>[CAPTURÉ]</color> Voie {lane} à {time}s");
-    }
-
-    Color GetColorForLane(int lane) {
-        if(lane == 1) return colorVoie1;
-        if(lane == 2) return colorVoie2;
-        if(lane == 3) return colorVoie3;
-        return colorVoie4;
+        Debug.Log($"<color=green>STABLE :</color> Voie {lane} détectée à {time:F3}s");
     }
 
     void ExportToFile()
     {
-        string path = Application.dataPath + "/" + fileName;
-
+        string path = Path.Combine(Application.dataPath, "Niveau_1_Data.txt");
         using (StreamWriter writer = new StreamWriter(path))
         {
-            writer.WriteLine("// Données générées le " + System.DateTime.Now);
-            writer.WriteLine("// Format : Bleu=1, Rouge=2, Vert=3, Rose=4");
+            // Join permet d'éviter la virgule en trop à la fin
+            string timesStr = "private float[] beatTimes1 = { " + string.Join("f, ", beatTimes.ConvertAll(t => t.ToString("F3").Replace(",", "."))) + "f };";
+            string lanesStr = "private int[] emplacementsManquants1 = { " + string.Join(", ", lanes) + " };";
+            writer.WriteLine(timesStr);
             writer.WriteLine("");
-
-            // Tableau des Timings
-            string times = "private float[] beatTimes1 = { ";
-            foreach (float t in beatTimes) times += t.ToString("F2").Replace(",", ".") + "f, ";
-            times += "};";
-            writer.WriteLine(times);
-
-            writer.WriteLine("");
-
-            // Tableau des Emplacements
-            string positions = "private int[] emplacementsManquants1 = { ";
-            foreach (int l in lanes) positions += l + ", ";
-            positions += "};";
-            writer.WriteLine(positions);
+            writer.WriteLine(lanesStr);
         }
-
-        Debug.Log($"<color=cyan><b>SUCCÈS :</b> Fichier créé dans Assets/{fileName}</color>");
-        videoPlayer.Pause(); // On met en pause pour confirmer la fin
+        Debug.Log("Fichier exporté proprement !");
     }
 }
