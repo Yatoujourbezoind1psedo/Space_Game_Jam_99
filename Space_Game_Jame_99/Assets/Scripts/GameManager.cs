@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void GameWin() //pour l'activer avec un délai je pas par isGameWinned 
     {
-        Debug.Log("GameWin"); 
+        //Debug.Log("GameWin"); 
 
         panelWin.SetActive(true); 
         panelJeu.SetActive(false); 

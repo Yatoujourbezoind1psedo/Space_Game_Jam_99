@@ -3661,6 +3661,8 @@ MonoBehaviour:
   meteors:
   - {fileID: 2650133941239790585, guid: ee85dd50c1ee308488df2e8b4cb260b5, type: 3}
   - {fileID: 8213203626882998117, guid: 356e5b48983b6004b9bd7dc0ace26ed4, type: 3}
+  globalSpeed: 10
+  musicSource: {fileID: 489125563}
   chemin1: {fileID: 2086178877}
   chemin2: {fileID: 149624335}
   chemin3: {fileID: 867542417}
@@ -3677,18 +3679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ce7ae163ff2494ebbcd46b4cbd1799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnRhythm
-  beatTimesTest:
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  emplacementsManquantsTest: 0100000002000000030000000400000004000000030000000200000001000000
-  music: {fileID: 489125563}
-  lvPlayed: 0
+  lvPlayed: 1
+  visualOffset: 0
   gameManager: {fileID: 518577932}
 --- !u!1 &609753930
 GameObject:
@@ -5306,16 +5298,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   distance: 2
   nbCanaux: 4
-  tempsDeplacement: 0.5
-  healthManager: {fileID: 518577930}
-  ptScan: 1
-  vitesseVisu: 20
-  rayDistance: 10
+  smoothTime: 0.05
   visuel: {fileID: 9068534}
-  laser: {fileID: 331555336}
   gameManager: {fileID: 518577932}
   laserManager: {fileID: 518577931}
+  healthManager: {fileID: 518577930}
+  laser: {fileID: 331555336}
+  rayDistance: 10
   intervalNoTarget: 1
+  tempsDeplacement: 0.5
 --- !u!54 &1272878547
 Rigidbody:
   m_ObjectHideFlags: 0
