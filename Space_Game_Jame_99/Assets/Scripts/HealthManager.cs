@@ -16,6 +16,9 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private float cooldownSeuil = 0f; 
     private float coolDownTimer; 
 
+    [Header("Effets d'Impact")]
+    [SerializeField] private GameObject explosionObject; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -64,6 +67,7 @@ public class HealthManager : MonoBehaviour
             healthAmount -= damage;
             tauxRemplissage = healthAmount / healtAmountOrigin; 
             coolDownTimer = cooldownSeuil; 
+            explosionObject.SetActive(true);
         }
 
     }
