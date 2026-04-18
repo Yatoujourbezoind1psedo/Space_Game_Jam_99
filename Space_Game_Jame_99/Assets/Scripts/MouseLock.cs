@@ -21,4 +21,16 @@ public class MouseLock : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
         }
     }
+
+    public void Afficher()
+    {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void Desafficher()
+    {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+    }
 }

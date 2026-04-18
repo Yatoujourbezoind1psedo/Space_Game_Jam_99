@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         
         musiqueJeu.Stop(); //Juste au cas où 
         //musiqueGameManager.Play(); //Générique win (faudra mettre le bon audio clip)
+        
+        this.GetComponent<MouseLock>().Afficher(); //affiche souris
     }
 
     public void GameRetry()
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
         musiqueJeu.Stop(); //ZA WARUDO AUDIO
         musiqueGameManager.Play(); //Générique fin
 
+        this.GetComponent<MouseLock>().Afficher(); 
     }
 
     public void GameOver()
@@ -86,10 +89,12 @@ public class GameManager : MonoBehaviour
         musiqueJeu.Stop(); //ZA WARUDO AUDIO
         musiqueGameManager.Play(); //Générique fin
 
+        this.GetComponent<MouseLock>().Afficher(); 
     }
 
     public void GamePlay() 
     {
+        this.GetComponent<MouseLock>().Desafficher(); 
         
         Time.timeScale = 1; 
         isGameRunning = true; 
@@ -105,6 +110,8 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
+        this.GetComponent<MouseLock>().Desafficher(); 
+
         Time.timeScale = 1; 
 
         Scene currentScene = SceneManager.GetActiveScene();
