@@ -6,10 +6,10 @@ public class PlayerController : MonoBehaviour
     [Header("Mouvement & Canaux")]
     [SerializeField] private float distance = 2f; 
     [SerializeField] private int nbCanaux = 4; 
-    [SerializeField] private float smoothTime = 0.05f; // Temps pour atteindre la cible (Ease-out)
+    [SerializeField] private float smoothTime = 0.05f; 
 
     [Header("Références")]
-    [SerializeField] private GameObject visuel; // L'objet frère
+    [SerializeField] private GameObject visuel; 
     [SerializeField] private GameManager gameManager; 
     [SerializeField] private LaserManager laserManager;
     [SerializeField] private HealthManager healthManager;
@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float intervalNoTarget = 1f;
     [SerializeField] private float tempsDeplacement = 0.3f;
 
+    [Header("Effets d'Impact")]
+    [SerializeField] private GameObject explosionObject; // L'objet déjà présent dans ta scène
+    [SerializeField] private float dureeExplosion = 0.5f; // Temps avant de recacher l'objet
+
     // Variables internes
     private float xPlayer, xOrigine;
     private float noTargetTimer, loseTargetTimer;
@@ -29,25 +33,24 @@ public class PlayerController : MonoBehaviour
     private AudioSource audioSourceDaron;
     private Animator animatorVisu;
     
-    // On a besoin de deux vélocités séparées pour que les deux objets soient fluides
     private Vector3 velocityHitbox = Vector3.zero; 
     private Vector3 velocityVisuel = Vector3.zero; 
 
     void Start()
     {
-        // 1. Initialisation
         xOrigine = transform.position.x; 
         float xPositionDepart = xOrigine + distance; 
         xPlayer = xPositionDepart;
 
-        // 2. Positionnement initial (sans glissade au démarrage)
         Vector3 startPos = new Vector3(xPositionDepart, transform.position.y, transform.position.z);
         transform.position = startPos;
         if (visuel != null) visuel.transform.position = startPos;
 
-        // 3. Composants
         audioSourceDaron = GetComponentInParent<AudioSource>();
         if (visuel != null) animatorVisu = visuel.GetComponent<Animator>();
+
+        // Sécurité : On cache l'explosion au démarrage
+        if (explosionObject != null) explosionObject.SetActive(false);
     }
 
     void Update()
@@ -61,10 +64,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMouvement()
     {
-        // --- 1. DETECTION DES TOUCHES ---
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame && xPlayer > xOrigine)
         {
-            ignoreFramesTP = 6; // On augmente un peu car le mouvement est plus lent que la TP
+            ignoreFramesTP = 6;
             xPlayer -= distance;
             PlayAnim("L");
         }
@@ -76,26 +78,12 @@ public class PlayerController : MonoBehaviour
             PlayAnim("R");
         }
 
-        // --- 2. MOUVEMENT FLUIDE (HITBOX + VISUEL) ---
         Vector3 targetPos = new Vector3(xPlayer, transform.position.y, transform.position.z);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocityHitbox, smoothTime);
 
-        // La Hitbox glisse maintenant au lieu de se TP
-        transform.position = Vector3.SmoothDamp(
-            transform.position, 
-            targetPos, 
-            ref velocityHitbox, 
-            smoothTime
-        );
-
-        // Le Visuel suit la même cible avec sa propre vélocité
         if (visuel != null)
         {
-            visuel.transform.position = Vector3.SmoothDamp(
-                visuel.transform.position, 
-                targetPos, 
-                ref velocityVisuel, 
-                smoothTime
-            );
+            visuel.transform.position = Vector3.SmoothDamp(visuel.transform.position, targetPos, ref velocityVisuel, smoothTime);
         }
     }
 
@@ -109,13 +97,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!isScanning) { audioSourceDaron.Play(); isScanning = true; }
+        if (!isScanning) { if(audioSourceDaron) audioSourceDaron.Play(); isScanning = true; }
 
         laser.SetActive(true);
         RaycastHit hit;
         TargetController currentTarget = null;
 
-        // On tire le rayon DEPUIS LA HITBOX (qui est en train de glisser)
         if (Physics.Raycast(transform.position, Vector3.left * rayDistance, out hit))
         {
             if (hit.collider.CompareTag("Target"))
@@ -125,7 +112,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Pendant que la hitbox glisse, on force le maintien de la cible pour éviter les coupures
         if (ignoreFramesTP > 0) { ignoreFramesTP--; currentTarget = lastTarget; }
 
         if (currentTarget != null)
@@ -170,8 +156,24 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+{
+    if (other.transform.root == transform.root) return;
+
+    if (other.CompareTag("Obstacle")) 
     {
-        if (other.transform.root == transform.root) return;
-        if (other.CompareTag("Obstacle")) healthManager.TakeDamage(1);
+        if(healthManager != null) healthManager.TakeDamage(1);
+
+        if (explosionObject != null)
+        {
+            // On l'active, le script ExplosionEffect fera le reste !
+            explosionObject.SetActive(false); // On force un reset au cas où il était déjà actif
+            explosionObject.SetActive(true);
+        }
+    }
+}
+
+    private void CacherExplosion()
+    {
+        if (explosionObject != null) explosionObject.SetActive(false);
     }
 }
