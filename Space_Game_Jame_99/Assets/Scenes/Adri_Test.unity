@@ -9563,6 +9563,10 @@ PrefabInstance:
       propertyPath: layersAToucher.m_Bits
       value: 91
       objectReference: {fileID: 0}
+    - target: {fileID: 4092950014415251945, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4299722473230360073, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -9610,6 +9614,10 @@ PrefabInstance:
     - target: {fileID: 8082532749684423536, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
       propertyPath: m_Center.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121534419325257225, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8448272718416677758, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
