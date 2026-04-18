@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LaserManager laserManager; 
     private bool panelAffiche = false;
 
+    private void Awake()
+    {
+        isMusicFinished = false; 
+    }
+
     private void Update()
     {
         if (isMusicFinished)
