@@ -5432,12 +5432,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032457260}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.50843686, y: 0.06449439, z: 0.010472134, w: 0.8586168}
-  m_LocalPosition: {x: 0.11, y: 1.39, z: 2.16}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.065334916, y: -0.67968476, z: 0.7270093, w: -0.0722323}
+  m_LocalPosition: {x: 0.053829562, y: -0.10944231, z: -0.5623889}
+  m_LocalScale: {x: 0.19999999, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1106077794}
+  m_Father: {fileID: 1519282868}
   m_LocalEulerAnglesHint: {x: 60.663, y: 14.347, z: 9.821}
 --- !u!114 &1032457265
 MonoBehaviour:
@@ -5451,7 +5451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8956ebe65c6817d4c83cd8b3fa64a3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
-  scaleMax: 1.5
+  scaleMax: 0.5
   vitesseVentre: 15
   vitesseRetrait: 7
 --- !u!1 &1053569999
@@ -5955,11 +5955,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105331095}
   m_Mesh: {fileID: 0}
---- !u!4 &1106077794 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6837039665535136573, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
-  m_PrefabInstance: {fileID: 8639004213755062367}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1149532892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6865,6 +6860,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518668660}
   m_CullTransparentMesh: 1
+--- !u!4 &1519282868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8336466060031889166, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+  m_PrefabInstance: {fileID: 8639004213755062367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1536651378
 GameObject:
   m_ObjectHideFlags: 0
@@ -9630,7 +9630,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6837039665535136573, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8336466060031889166, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1032457264}
     - targetCorrespondingSourceObject: {fileID: 3669200676649732767, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
