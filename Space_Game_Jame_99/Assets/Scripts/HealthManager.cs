@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class HealthManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class HealthManager : MonoBehaviour
 
     [Header("Effets d'Impact")]
     [SerializeField] private GameObject explosionObject; 
-
+    [SerializeField] private GameObject visuSatelitte;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -68,11 +69,23 @@ public class HealthManager : MonoBehaviour
             tauxRemplissage = healthAmount / healtAmountOrigin; 
             coolDownTimer = cooldownSeuil; 
             explosionObject.SetActive(true);
+            StartCoroutine(Blink()); 
         }
 
     }
+    
+    IEnumerator Blink()
+    {
+        while (coolDownTimer > 0f)
+        {
+            visuSatelitte.SetActive(false);
+            yield return new WaitForSeconds(0.03f);
+            visuSatelitte.SetActive(true);
+            yield return new WaitForSeconds(0.03f);
+        }
+    }
 
-public void Heal(float healingAmount) //Pt bloquer au max de pv d'origine, à voir
+    public void Heal(float healingAmount) //Pt bloquer au max de pv d'origine, à voir
     {
         healthAmount += healingAmount;
         healthAmount = Mathf.Clamp(healthAmount, 0, healtAmountOrigin); //Permet d'éviter d'avoir plus de pv que le max et moins de PV que le min (zéro)
