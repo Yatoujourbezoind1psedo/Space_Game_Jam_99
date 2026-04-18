@@ -1,31 +1,40 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public bool isGameRunning = true; 
 
     //Récupération des panels de jeu et de game over pour le switch
-    [SerializeField] private GameObject panelGameOver, panelJeu, panelWin; 
+    [SerializeField] private GameObject panelGameOver, panelJeu, panelWin, panelGameRetry; 
 
     [SerializeField] private AudioSource musiqueJeu, musiqueGameManager; 
     [SerializeField] private float delaWin;
-    public bool isGameWinned = false; 
+    public bool isMusicFinished = false; 
+
+    [SerializeField] private LaserManager laserManager; 
+    private bool panelAffiche = false;
 
     private void Update()
     {
-        if (isGameWinned)
+        if (isMusicFinished)
         {
             delaWin -= Time.deltaTime; 
         }
 
-        if(delaWin <= 0) //Donc on a gagné
+        if(!panelAffiche && delaWin <= 0 && (laserManager.GetTauxScanPourCent() == 100)) //Donc on a gagné
         {
+            panelAffiche = true;
             GameWin(); 
+        }else if (!panelAffiche && delaWin <= 0 && (laserManager.GetTauxScanPourCent() != 100)) //don on a terminé la musique mais pas tout scan (la condition est pas nécessaire mais bon)
+        {
+            panelAffiche = true;
+            GameRetry(); 
         }
     }
 
-    private void GameWin() //pour l'activer avec un délai je pas par isGameWinned 
+    private void GameWin() //pour l'activer avec un délai je pas par isMusicFinished 
     {
         //Debug.Log("GameWin"); 
 
@@ -40,6 +49,25 @@ public class GameManager : MonoBehaviour
         
         musiqueJeu.Stop(); //Juste au cas où 
         //musiqueGameManager.Play(); //Générique win (faudra mettre le bon audio clip)
+    }
+
+    public void GameRetry()
+    {
+        //Debug.Log("GAME OVER");
+        panelGameRetry.GetComponentInChildren<TextMeshProUGUI>().text = "FAIL : " + laserManager.GetTauxScanPourCent() + "% sur " + laserManager.tauxScanMax + "%"; 
+
+        panelGameRetry.SetActive(true); 
+        panelJeu.SetActive(false); 
+
+        //ZA WARUDO !!!!
+        Time.timeScale = 0;
+        isGameRunning = false;
+
+        
+        
+        musiqueJeu.Stop(); //ZA WARUDO AUDIO
+        musiqueGameManager.Play(); //Générique fin
+
     }
 
     public void GameOver()
