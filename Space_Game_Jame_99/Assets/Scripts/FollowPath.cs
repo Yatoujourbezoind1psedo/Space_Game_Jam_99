@@ -3,28 +3,53 @@ using UnityEngine;
 public class FollowPath : MonoBehaviour
 {
     public Transform[] points;
-    public float speed = 5f;
+    public float speed;
+    private AudioSource musicSource;
 
     private int currentPoint = 0;
+    private bool impactLogged = false;
+
+    public void SetMusicSource(AudioSource source) {
+        musicSource = source;
+    }
 
     void Update()
     {
-        Transform target = points[currentPoint]; //Récupère le transform du point actuel
+        if (points == null || currentPoint >= points.Length) return;
 
-        transform.position = Vector3.MoveTowards( //déplace objet vers position du point progressivement sans dépasser cible
-            transform.position, //position actuelle
-            target.position, //destination
-            speed * Time.deltaTime //vitesse constante
-        );
+        Transform target = points[currentPoint];
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        float moveDistance = speed * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, target.position) < 0.1f) //vérifie si on est arrivé (petite valeur pour éviter que point oscille)
+        // Si on va dépasser le point cette frame, on se téléporte dessus
+        if (moveDistance >= distanceToTarget)
         {
-            currentPoint++;
-
-            if (currentPoint >= points.Length) //fin du parcours
+            transform.position = target.position;
+            
+            // Log de l'impact au Point 3 (index 2)
+            if (currentPoint == 2 && !impactLogged)
             {
-                Destroy(gameObject); //détruit en fin de boucle
+                LogImpactTime();
+                impactLogged = true;
             }
+
+            currentPoint++;
+            if (currentPoint >= points.Length) Destroy(gameObject);
         }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position, moveDistance);
+        }
+    }
+
+    private void LogImpactTime()
+    {
+        float timeToLog = (musicSource != null) ? musicSource.time : Time.timeSinceLevelLoad;
+
+        int minutes = Mathf.FloorToInt(timeToLog / 60f);
+        int seconds = Mathf.FloorToInt(timeToLog % 60f);
+        int milliseconds = Mathf.FloorToInt((timeToLog * 1000f) % 1000f);
+
+        Debug.Log(string.Format("<color=cyan>IMPACT AUDIO à : {0:00}:{1:00}:{2:000}</color>", minutes, seconds, milliseconds));
     }
 }

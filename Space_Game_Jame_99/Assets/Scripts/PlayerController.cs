@@ -3,208 +3,175 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [SerializeField] private float distance = 2; 
+    [Header("Mouvement & Canaux")]
+    [SerializeField] private float distance = 2f; 
     [SerializeField] private int nbCanaux = 4; 
-    private float xPlayer, xOrigine, loseTargetTimer;
-    public float tempsDeplacement = 0.3f; //Va permettre de faire verrou temporel (ou grace period) pour que dès que perso bouge alors on continue sur le même laser (sinon couperait le startscan())
+    [SerializeField] private float smoothTime = 0.05f; // Temps pour atteindre la cible (Ease-out)
 
-    [SerializeField] private HealthManager healthManager; 
-    [SerializeField] private float ptScan, vitesseVisu; 
-    [SerializeField] private float rayDistance = 10f;
-    [SerializeField] private GameObject visuel, laser; 
-
+    [Header("Références")]
+    [SerializeField] private GameObject visuel; // L'objet frère
     [SerializeField] private GameManager gameManager; 
+    [SerializeField] private LaserManager laserManager;
+    [SerializeField] private HealthManager healthManager;
+    [SerializeField] private GameObject laser; 
 
-    private TargetController lastTarget; //Permet d'avoir un target controller null au démarage
-    private int ignoreFramesTP = 0; //Va s'incrémenter au mouvement pour skip quelques frames
-    [SerializeField] private LaserManager laserManager; 
-
-    private float noTargetTimer = 0f;
+    [Header("Paramètres Laser")]
+    [SerializeField] private float rayDistance = 10f;
     [SerializeField] private float intervalNoTarget = 1f;
+    [SerializeField] private float tempsDeplacement = 0.3f;
 
+    // Variables internes
+    private float xPlayer, xOrigine;
+    private float noTargetTimer, loseTargetTimer;
+    private int ignoreFramesTP = 0;
+    private bool isScanning;
+    private TargetController lastTarget;
     private AudioSource audioSourceDaron;
-    private bool isScanning; 
+    private Animator animatorVisu;
+    
+    // On a besoin de deux vélocités séparées pour que les deux objets soient fluides
+    private Vector3 velocityHitbox = Vector3.zero; 
+    private Vector3 velocityVisuel = Vector3.zero; 
 
-    private Animator animatorVisu; 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        xPlayer = transform.position.x; 
-        xOrigine = transform.position.x;
+        // 1. Initialisation
+        xOrigine = transform.position.x; 
+        float xPositionDepart = xOrigine + distance; 
+        xPlayer = xPositionDepart;
 
-        //récupération audiosource parent
+        // 2. Positionnement initial (sans glissade au démarrage)
+        Vector3 startPos = new Vector3(xPositionDepart, transform.position.y, transform.position.z);
+        transform.position = startPos;
+        if (visuel != null) visuel.transform.position = startPos;
+
+        // 3. Composants
         audioSourceDaron = GetComponentInParent<AudioSource>();
-
-        //Récupération animator du visu
-        animatorVisu = visuel.GetComponent<Animator>(); 
-        
+        if (visuel != null) animatorVisu = visuel.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (gameManager.isGameRunning)
+        if (gameManager != null && gameManager.isGameRunning)
         {
             HandleMouvement(); 
             HandleLaser();   
         }
-        
     }
 
-    //Logique de déplacement
     private void HandleMouvement()
     {
-        //visuel déplacement (séparation visuel et hitbox pour que pas punitif avec tp et à la fois visuel)
-        visuel.transform.position = Vector3.Lerp( //On va aller vers à l'aide d'un vector 3
-            visuel.transform.position, //on part de la position de départ
-            new Vector3(xPlayer, visuel.transform.position.y, visuel.transform.position.z), //L'arrivé c'est un truc du genre Nouveau x, même y, même z
-            Time.deltaTime * vitesseVisu //en temps de vitesse visu en seconde 
-        ); 
-
-        if (Keyboard.current.leftArrowKey.wasPressedThisFrame && xPlayer > xOrigine) //gauche + peut pas aller en dessous de point de départ
+        // --- 1. DETECTION DES TOUCHES ---
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame && xPlayer > xOrigine)
         {
-            ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
-            transform.position -= new Vector3(distance, 0f, 0f);
+            ignoreFramesTP = 6; // On augmente un peu car le mouvement est plus lent que la TP
             xPlayer -= distance;
-
-            //Visu roll
-            animatorVisu.SetTrigger("Roll"); 
-            
+            PlayAnim("L");
         }
 
-        if (Keyboard.current.rightArrowKey.wasPressedThisFrame && xPlayer < xOrigine * (distance * (nbCanaux - 1))) //droite + paramétrer pour aller que dans 4 canaux XORIGINE PAS ZERO
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame && xPlayer < xOrigine + (distance * (nbCanaux - 1)))
         {
-            ignoreFramesTP = 4; //Skip de 4 frame pour le laser pour capter
-            transform.position += new Vector3(distance, 0f, 0f);
+            ignoreFramesTP = 6;
             xPlayer += distance; 
-
-            animatorVisu.SetTrigger("Roll"); 
+            PlayAnim("R");
         }
 
-        //Pour qu'anim joue une fois 
-        AnimatorStateInfo infoAnim = animatorVisu.GetCurrentAnimatorStateInfo(0); 
+        // --- 2. MOUVEMENT FLUIDE (HITBOX + VISUEL) ---
+        Vector3 targetPos = new Vector3(xPlayer, transform.position.y, transform.position.z);
 
-        if(infoAnim.IsName("Rolling") && infoAnim.normalizedTime >= 0.9f) //Si Rolling est arrivé à 1 (donc joué entièrement) (mis un peu avant fin pour éviter souci)
+        // La Hitbox glisse maintenant au lieu de se TP
+        transform.position = Vector3.SmoothDamp(
+            transform.position, 
+            targetPos, 
+            ref velocityHitbox, 
+            smoothTime
+        );
+
+        // Le Visuel suit la même cible avec sa propre vélocité
+        if (visuel != null)
         {
-            animatorVisu.ResetTrigger("Roll"); //Alors j'annule le roll
+            visuel.transform.position = Vector3.SmoothDamp(
+                visuel.transform.position, 
+                targetPos, 
+                ref velocityVisuel, 
+                smoothTime
+            );
         }
-        
     }
 
-    //gestion du laser du joueur 
     private void HandleLaser()
     {
-        if (!Keyboard.current.spaceKey.isPressed) //Si espace est pas pressé on (ca veut dire que la dernière cible doit cessé son décompte et que l'on vise rien maintenant)
+        if (!Keyboard.current.spaceKey.isPressed)
         {
             isScanning = false; 
-
-            laser.SetActive(false); //Fait disparaitre visuel du laser
-            if (lastTarget != null) //si la dernière cible n'est pas présente et donc que j'avais scan une target
-            {
-                lastTarget.StopScan(); //stop scan de l'ancienne cible
-                lastTarget = null; //et l'ancienne cible maintenant est nulle puisqeu on relâche le bouton
-            }
-            return; //retour de la fonction HandleLaser qaund pas clic poru pas déclencher le reste
+            laser.SetActive(false);
+            if (lastTarget != null) { lastTarget.StopScan(); lastTarget = null; }
+            return;
         }
 
-        //Si espace a été pressé
+        if (!isScanning) { audioSourceDaron.Play(); isScanning = true; }
 
-        //gerstion de l'audio
-        if (!isScanning)
-        {  
-            audioSourceDaron.Play(); 
-        }
+        laser.SetActive(true);
+        RaycastHit hit;
+        TargetController currentTarget = null;
 
-        isScanning = true; 
-        
-        RaycastHit hit; //info du raycast 
-        laser.SetActive(true); //fait apparaitre le visuel du laser
-        TargetController currentTarget = null;  //On intialise à vide la référence de la cible au cas où raycast touche R 
-
-        Debug.DrawRay(transform.position, Vector3.left * rayDistance, Color.red); //Pour afficher dans scène (attention à Vector3.left, ici tire rayon à gauche)
-
-        
-        //détection cible actuelle 
-        if (Physics.Raycast(transform.position, Vector3.left * rayDistance, out hit)) //Le rayon part à partir de transform.position, dans la direction gauche, à une distance rayDistance (hit est le rayon qu'on envoie)
+        // On tire le rayon DEPUIS LA HITBOX (qui est en train de glisser)
+        if (Physics.Raycast(transform.position, Vector3.left * rayDistance, out hit))
         {
-            
-
             if (hit.collider.CompareTag("Target"))
             {
-                currentTarget = hit.collider.GetComponent<TargetController>(); //si on touche une target on dit que la cible (current) = TargetController de l'impact
-                noTargetTimer = 0f; //Reset le fait de pas toucher cible dès qu'on détecte une target 
+                currentTarget = hit.collider.GetComponent<TargetController>();
+                noTargetTimer = 0f;
             }
         }
 
-        /*
-        if (currentTarget == null && lastTarget != null) //Permet de se coller sur une target, comme ça permet téléportation
-        {
-            currentTarget = lastTarget; 
-        }*/
-        if (ignoreFramesTP > 0) //La même chose qu'au dessus mais jsute pour deux frame (sécurité bonus en déplacement)
-        {
-            ignoreFramesTP --; 
-            currentTarget = lastTarget; 
-        } 
-        if (currentTarget != null) //si le current est pas nul, donc si on touche un target
-        {
-            loseTargetTimer = 0f; //Reset du timer car cible toujours détectée
+        // Pendant que la hitbox glisse, on force le maintien de la cible pour éviter les coupures
+        if (ignoreFramesTP > 0) { ignoreFramesTP--; currentTarget = lastTarget; }
 
-            if(currentTarget != lastTarget) //Si c'est pas la même cible que la précédente
+        if (currentTarget != null)
+        {
+            loseTargetTimer = 0f;
+            if (currentTarget != lastTarget)
             {
-                if (lastTarget != null) //Et que l'ancienne est pas nulle
-                    lastTarget.StopScan(); //Alors arrêt du scan
-
-                lastTarget = currentTarget; //Ancienne cible deivent la nouvelle
-                lastTarget.StartScan(); //et le scan commence 
-
+                if (lastTarget != null) lastTarget.StopScan();
+                lastTarget = currentTarget;
+                lastTarget.StartScan();
             }
         }
-        else //Donc si le l'objet touché par le raycast n'est pas une target
+        else
         {
-            if (lastTarget != null) //permet de mettre un petit cooldown 
+            if (lastTarget != null)
             {
-                loseTargetTimer += Mathf.Min(Time.deltaTime, 0.05f); //Le timer se remplit petit à petit tant que pas de cible détectée (le fait qu'il s'incrémente n'est pas dérangeant sur la durée puisque c'est chronométré le niveau)
-
-                if (loseTargetTimer > tempsDeplacement) //et s'il dépasse le cooldown donné
+                loseTargetTimer += Mathf.Min(Time.deltaTime, 0.05f);
+                if (loseTargetTimer > tempsDeplacement)
                 {
-                    Debug.Log("Perdu Cible"); 
-                    lastTarget.StopScan(); //Alors on a stoppé de suivre la target (avec un délai), du coup on arrête son scan
-
-                    lastTarget = null; //et on dit qu'on capte R (et current target est null puisque cette fonction s'active toutes les frames)
+                    lastTarget.StopScan();
+                    lastTarget = null;
                 }
-            }else if (lastTarget == null) //Donc que toutes les targets sont nulles 
+            }
+            else
             {
-                noTargetTimer += Time.deltaTime; 
-
+                noTargetTimer += Time.deltaTime;
                 if (noTargetTimer >= intervalNoTarget)
                 {
-                    laserManager.DecrementScan(1); //Perd un point dès que joueur tire à coté 
-                    noTargetTimer = 0f; 
+                    laserManager.DecrementScan(1);
+                    noTargetTimer = 0f;
                 }
-                
             }
-            
         }
     }
 
-    //DETECTION OBSTACLE
+    private void PlayAnim(string side)
+    {
+        if (animatorVisu == null) return;
+        animatorVisu.SetTrigger("Roll");
+        if (side == "L") { animatorVisu.ResetTrigger("R"); animatorVisu.SetTrigger("L"); }
+        else { animatorVisu.ResetTrigger("L"); animatorVisu.SetTrigger("R"); }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.root == transform.root) return; // Si l'autre objet rentre en collison avec un enfant alors return
-
-        if (other.CompareTag("Obstacle")) //Si le joueur se fait toucher
-        {
-            //Debug.Log("ouch"); 
-            healthManager.TakeDamage(1); 
-        }
+        if (other.transform.root == transform.root) return;
+        if (other.CompareTag("Obstacle")) healthManager.TakeDamage(1);
     }
-
-    /*
-    Pour éviter que laser active collision avec obstacle : 
-    Laser a layer laser, player a layer player et obstacle a layer obtacle 
-    Dans edit -> Project Settings -> Physics -> Settings > Layer collision matrix : disable interaction entre laser et obstacle
-    */
 }

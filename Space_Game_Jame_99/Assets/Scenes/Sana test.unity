@@ -159,8 +159,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Jud\xE9lia n'a pas d'amis"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -257,7 +257,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -297,7 +297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.2, y: -0.5}
+  m_AnchoredPosition: {x: -34.91, y: -0.5}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &154736839
@@ -340,8 +340,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "...Mais elle se heurte aux moqueries de ses coll\xE8gues"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -1.1605949, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.31215286, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -438,7 +438,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -478,7 +478,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 168.18, y: -4.61}
+  m_AnchoredPosition: {x: 169.3, y: -4.61}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &288180400
@@ -589,7 +589,7 @@ Transform:
   m_GameObject: {fileID: 288180400}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 188.9, y: -0.1, z: -20.4}
+  m_LocalPosition: {x: 187.9, y: -0.1, z: -20.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -633,10 +633,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Elle se heurte aux moqueries de ses coll\xE8gues"
+  m_text: "Jud\xE9lia doit trouver la source de ce probl\xE8me."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -1.8771057, w: 0}
+  m_margin: {x: -0.00006580175, y: 0, z: 7.5333786, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -733,7 +733,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -766,14 +766,14 @@ RectTransform:
   m_GameObject: {fileID: 289557978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -19.9}
-  m_LocalScale: {x: 0.87417734, y: 0.87417734, z: 0.87417734}
+  m_LocalScale: {x: 0.9307098, y: 0.9307098, z: 0.9307098}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 419.73, y: -9.0515}
+  m_AnchoredPosition: {x: 426.08, y: -8.5935}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &316585792
@@ -987,10 +987,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Tandis qu'iles f\xEAtent une d\xE9couverte (vol\xE9e \xE0 Jud\xE9lia)"
+  m_text: Ils ouvrent une bouteille de vin
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1087,7 +1087,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1170,8 +1170,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Pauvre Jud\xE9lia"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1268,7 +1268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1308,7 +1308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52.61, y: -9.89}
+  m_AnchoredPosition: {x: 52.61, y: -9.55}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &558152245
@@ -1464,8 +1464,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Souvent elle est moqu\xE9e par ses pairs...Parfois ils volent son travail."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -1562,7 +1562,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1602,7 +1602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.2051, y: -8.9186}
+  m_AnchoredPosition: {x: 4.2051, y: -8.57}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &928272145
@@ -1939,7 +1939,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.00461741, y: 0.7068713, z: -0.7072905, w: 0.0072154435}
   m_LocalPosition: {x: 121.5, y: 2, z: -15}
-  m_LocalScale: {x: 1.5843052, y: 1.4082713, z: 1.830612}
+  m_LocalScale: {x: 1.3882632, y: 1.2340118, z: 1.604092}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2097,8 +2097,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Un jour, elle essaye de les avertir que son eau a plus de go\xFBt ..."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2135,7 +2135,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2195,7 +2195,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2235,7 +2235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 118.3, y: -8.5888}
+  m_AnchoredPosition: {x: 118.3, y: -7.72}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1718869505
@@ -2389,10 +2389,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "...Mais elle se heurte aux moqueries de ses coll\xE8gues"
+  m_text: "Mais surprise, il n'a pas de go\xFBt !"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2429,7 +2429,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2489,7 +2489,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2570,10 +2570,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "...Mais elle se heurte aux moqueries de ses coll\xE8gues"
+  m_text: "Et ce n'est pas une probl\xE8me isol\xE9, plus rien n'a de go\xFBt. "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2670,7 +2670,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2710,7 +2710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 373.90002, y: -0.5}
+  m_AnchoredPosition: {x: 373.90002, y: 0.7}
   m_SizeDelta: {x: 22.3956, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1744981091
@@ -2878,7 +2878,7 @@ Transform:
   m_GameObject: {fileID: 1826053062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 422.7, y: -0.3, z: -22.7}
+  m_LocalPosition: {x: 422.7, y: 0.78, z: -22.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3051,8 +3051,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Tandis qu'ils f\xEAtent une d\xE9couverte (vol\xE9e \xE0 Jud\xE9lia)"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3089,7 +3089,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: -22.9
+  m_lineSpacing: -36.94
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -3149,7 +3149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

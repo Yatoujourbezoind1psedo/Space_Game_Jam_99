@@ -1,96 +1,68 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManagement : MonoBehaviour
 {
     [SerializeField] private GameObject[] meteors; 
+    [SerializeField] public float globalSpeed = 10f; // La vitesse unique
+    [SerializeField] public AudioSource musicSource; // La musique à glisser ici !
 
     [SerializeField] private Transform chemin1, chemin2, chemin3, chemin4; 
-    private Transform[] pointsCh1, pointsCh2, pointsCh3, pointsCh4; //Listes des points des chemins 
+    private Transform[] pointsCh1, pointsCh2, pointsCh3, pointsCh4; 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Initialisation des points présents dans les chemins 
-        pointsCh1 = new Transform[chemin1.childCount]; 
-        for(int i = 0; i < chemin1.childCount; i++)
-        {
-            pointsCh1[i] = chemin1.GetChild(i); 
-        }
-
-
-        pointsCh2 = new Transform[chemin2.childCount]; 
-        for(int i = 0; i < chemin2.childCount; i++)
-        {
-            pointsCh2[i] = chemin2.GetChild(i); 
-        }
-
-        pointsCh3 = new Transform[chemin3.childCount]; 
-        for(int i = 0; i < chemin2.childCount; i++)
-        {
-            pointsCh3[i] = chemin3.GetChild(i); 
-        }
-
-        pointsCh4 = new Transform[chemin4.childCount]; 
-        for(int i = 0; i < chemin2.childCount; i++)
-        {
-            pointsCh4[i] = chemin4.GetChild(i); 
-        }
-
-        //SpawnMeteorsExceptChemin(0); 
+        pointsCh1 = GetPoints(chemin1);
+        pointsCh2 = GetPoints(chemin2);
+        pointsCh3 = GetPoints(chemin3);
+        pointsCh4 = GetPoints(chemin4);
     }
 
-/*
-    public void SpawnMeteor1()
-    {
-        SpawnMeteor(0, pointsCh1); 
+    private Transform[] GetPoints(Transform parent) {
+        Transform[] pts = new Transform[parent.childCount];
+        for(int i = 0; i < parent.childCount; i++) pts[i] = parent.GetChild(i);
+        return pts;
     }
-
-    public void SpawnMeteor2()
-    {
-        SpawnMeteor(1, pointsCh2); 
-    }*/
 
     public void SpawnMeteor(int meteorX, Transform[] pointsChX)
     {
-        GameObject mete = Instantiate(meteors[meteorX], pointsChX[0].transform.position, meteors[meteorX].transform.rotation);  //Instantie le météore X dnas la lsite au point 0 du chemin donné
-        FollowPath sc = mete.GetComponent<FollowPath>(); // Récupère le script Follow Path
-        sc.points = pointsChX; //Lui donne les points qu'il doit suivre
+        if(meteors == null || meteors.Length == 0) return;
+
+        GameObject mete = Instantiate(meteors[meteorX], pointsChX[0].position, meteors[meteorX].transform.rotation);
+        FollowPath sc = mete.GetComponent<FollowPath>();
+        
+        sc.points = pointsChX;
+        sc.speed = globalSpeed;
+        // On donne la musique à la météorite pour son debug
+        sc.SetMusicSource(musicSource); 
     }
 
-    public void SpawnMeteorsExceptChemin (int oubli) //fait apparaitre météore sauf à l'emplacement dnné (0 = pas de météores); 
+    public void SpawnMeteorsExceptChemin(int oubli)
     {
-        switch (oubli)
+        Transform[][] listes = { pointsCh1, pointsCh2, pointsCh3, pointsCh4 };
+        for (int i = 0; i < listes.Length; i++)
         {
-            case 0:
-                break; 
-
-            case 1: //Donc on ne prend pas le premier météore 
-                SpawnMeteor(0, pointsCh2); 
-                SpawnMeteor(1, pointsCh3);
-                SpawnMeteor(0, pointsCh4);
-                break; 
-
-            case 2: //ici pas le deuxième et bla bla bla
-                SpawnMeteor(0, pointsCh1); 
-                SpawnMeteor(1, pointsCh3);
-                SpawnMeteor(0, pointsCh4);
-                break; 
-
-            case 3: 
-                SpawnMeteor(0, pointsCh1); 
-                SpawnMeteor(1, pointsCh2);
-                SpawnMeteor(0, pointsCh4);
-                break;
-
-
-            case 4: 
-                SpawnMeteor(0, pointsCh1); 
-                SpawnMeteor(1, pointsCh2);
-                SpawnMeteor(0, pointsCh3);
-                break;
-
+            if ((i + 1) != oubli) SpawnMeteor(0, listes[i]);
         }
     }
 
+    public float GetTravelTime(int cheminIndex, float speed)
+    {
+        Transform[] points = null;
+        switch(cheminIndex) {
+            case 1: points = pointsCh1; break;
+            case 2: points = pointsCh2; break;
+            case 3: points = pointsCh3; break;
+            case 4: points = pointsCh4; break;
+        }
+
+        if (points == null || points.Length < 3) return 0f;
+
+        float distanceTotale = 0f;
+        // Distance jusqu'au point 3 (index 2)
+        for (int i = 0; i < 2; i++)
+        {
+            distanceTotale += Vector3.Distance(points[i].position, points[i+1].position);
+        }
+        return distanceTotale / speed;
+    }
 }
