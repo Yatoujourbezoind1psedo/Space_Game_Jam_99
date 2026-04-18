@@ -9,8 +9,8 @@ public class SpawnRhythm : MonoBehaviour
 
 private int[] emplacementsManquants1 = { 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 2, 1, 2, 3, 4, 3, 2, 1, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 2, 3, 4, 3, 2 };
 
-    private float[] beatTimes2; 
-    private int[] emplacementsManquants2; 
+    private float[] beatTimes2 = {1f,2f}; 
+    private int[] emplacementsManquants2= {1,2}; 
     [SerializeField] private int lvPlayed = 1; 
     [SerializeField] private float visualOffset = 0f; // À régler dans l'inspecteur
     [SerializeField] private GameManager gameManager; 
@@ -56,9 +56,9 @@ private int[] emplacementsManquants1 = { 3, 4, 3, 2, 3, 2, 3, 4, 3, 2, 3, 4, 3, 
 
         if (currentBeatTimes == null || index >= currentBeatTimes.Length || music == null) return;  //pas de piste trouvée ou index plus grand que nombre de beats ou pas de muique
 
-        if (!finPiste && (index >= currentEmplacements.Length || (!music.isPlaying && index >= 3))) //fin des apparitions ou de la musique
+        if (!finPiste && (index+1 >= currentEmplacements.Length || !music.isPlaying)) //fin des apparitions ou de la musique
         {
-            Debug.Log("ginito pipo la"+music.isPlaying);
+            
             finPiste = true; 
             gameManager.isMusicFinished = true;
             return; 
