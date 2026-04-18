@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Obstacle")) 
         {
             if(healthManager != null) healthManager.TakeDamage(1);
-            if (explosionObject != null) { explosionObject.SetActive(false); explosionObject.SetActive(true); }
+            
         }
     }
 }

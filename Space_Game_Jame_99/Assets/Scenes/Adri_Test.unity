@@ -2645,6 +2645,7 @@ MonoBehaviour:
   gameManager: {fileID: 518577932}
   tempsRemplissage: 10
   cooldownSeuil: 1
+  explosionObject: {fileID: 1032457260}
 --- !u!114 &518577931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2678,7 +2679,7 @@ MonoBehaviour:
   panelGameRetry: {fileID: 869864828}
   musiqueJeu: {fileID: 489125563}
   musiqueGameManager: {fileID: 518577933}
-  delaWin: 0
+  delaWin: 1
   isMusicFinished: 0
   laserManager: {fileID: 518577931}
 --- !u!82 &518577933
@@ -4476,7 +4477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &869864830
@@ -8871,7 +8872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2013775337
