@@ -1452,7 +1452,7 @@ MonoBehaviour:
   laserManager: {fileID: 518577931}
   vitesseScan: 5
   ptScanMoins: 1
-  maxScan: 20
+  maxScan: 40
   vitesseRemplissageImage: 10
 --- !u!54 &237311629
 Rigidbody:
@@ -5849,7 +5849,7 @@ MonoBehaviour:
   laserManager: {fileID: 518577931}
   vitesseScan: 5
   ptScanMoins: 1
-  maxScan: 20
+  maxScan: 40
   vitesseRemplissageImage: 10
 --- !u!54 &1105331099
 Rigidbody:
@@ -7450,7 +7450,7 @@ MonoBehaviour:
   laserManager: {fileID: 518577931}
   vitesseScan: 5
   ptScanMoins: 1
-  maxScan: 20
+  maxScan: 40
   vitesseRemplissageImage: 10
 --- !u!114 &1668916021
 MonoBehaviour:
@@ -7981,7 +7981,7 @@ MonoBehaviour:
   laserManager: {fileID: 518577931}
   vitesseScan: 5
   ptScanMoins: 1
-  maxScan: 20
+  maxScan: 40
   vitesseRemplissageImage: 10
 --- !u!54 &1819694959
 Rigidbody:
@@ -9679,6 +9679,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4752398256718216157, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752398256718216157, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752398256718216157, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 082d55f15e6081d46b45b63958d1fd78, type: 3}
     - target: {fileID: 6172706616476592519, guid: 9599ae64d002ce846acd10a79bb1206a, type: 3}
       propertyPath: m_IsActive
       value: 1
