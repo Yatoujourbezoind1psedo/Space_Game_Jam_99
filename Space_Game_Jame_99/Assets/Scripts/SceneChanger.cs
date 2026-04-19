@@ -1,12 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine;
 using UnityEngine.SceneManagement; // Obligatoire pour gérer les scènes
 
 public class SceneChanger : MonoBehaviour
 {
-    public void ChargerScene(string Sana test)
+    public void ChargerScene(string Sanatest)
     {
-        SceneManager.LoadScene(Sana test);
+        SceneManager.LoadScene(Sanatest);
     }
 }
