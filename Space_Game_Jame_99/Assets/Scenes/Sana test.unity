@@ -159,8 +159,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Jud\xE9lia est une astrophysicienne qui n'a pas d'amis"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -257,7 +257,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -340,8 +340,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "...Mais elle se heurte aux moqueries de ses coll\xE8gues"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -438,7 +438,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -635,8 +635,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Jud\xE9lia doit trouver la source de ce probl\xE8me."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -733,7 +733,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -989,8 +989,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ils ouvrent une bouteille de vin
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1087,7 +1087,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1170,8 +1170,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Pauvre Jud\xE9lia"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1268,7 +1268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1464,8 +1464,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Souvent elle est moqu\xE9e par ses pairs...Parfois ils volent son travail."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1562,7 +1562,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2097,8 +2097,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Un jour, elle essaye de les avertir que son eau a plus de go\xFBt ..."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2195,7 +2195,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2391,8 +2391,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Mais surprise, il n'a pas de go\xFBt !"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2489,7 +2489,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2572,8 +2572,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Et ce n'est pas une probl\xE8me isol\xE9, plus rien n'a de go\xFBt. "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2670,7 +2670,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3051,8 +3051,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Tandis qu'ils f\xEAtent une d\xE9couverte (vol\xE9e \xE0 Jud\xE9lia)"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
-  m_sharedMaterial: {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
+  m_sharedMaterial: {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3149,7 +3149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -278834002128209696, guid: 2f7048fc5f4527d49913bb78b77bdb62, type: 2}
+  - {fileID: 6533072770165166892, guid: 267997e5da1e5074f9895d8fa39fac47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
