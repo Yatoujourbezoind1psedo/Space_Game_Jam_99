@@ -203,8 +203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.1
-  m_fontSizeBase: 42.1
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1234,7 +1234,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 316585794}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1779,8 +1779,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32.371338, y: 461.6197}
-  m_SizeDelta: {x: 294.8478, y: 70.9783}
+  m_AnchoredPosition: {x: 32.371338, y: 238}
+  m_SizeDelta: {x: 170.101, y: 40.9482}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &808292182
 MonoBehaviour:
