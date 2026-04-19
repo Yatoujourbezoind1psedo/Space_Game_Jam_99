@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/menu.unity
+    guid: 5448d3acb1f7065488be0c94c5fde524
+  - enabled: 1
+    path: Assets/Scenes/Adri_Test.unity
+    guid: a5796c949626e8749a24e9b634215731
+  - enabled: 1
+    path: Assets/Scenes/Credit.unity
+    guid: e9c4d2f12d9c5d14fbf5f4bb4d40357e
+  - enabled: 1
+    path: Assets/Scenes/Sana test.unity
+    guid: 87f14ea4fb2979b47887d9cbba2189ca
+  - enabled: 1
+    path: Assets/Scenes/Sana test 1.unity
+    guid: 558370ea69196ab45ba126a0d44efc90
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
