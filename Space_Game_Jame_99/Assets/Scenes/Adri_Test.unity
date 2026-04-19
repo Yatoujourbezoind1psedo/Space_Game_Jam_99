@@ -5690,7 +5690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff2c03b20766d14586305614ee288e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DisparitionApresXTemps
-  tempsDisparition: 3
+  tempsDisparition: 2
 --- !u!1 &1090126875
 GameObject:
   m_ObjectHideFlags: 0
